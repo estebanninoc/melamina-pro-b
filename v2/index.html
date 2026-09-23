@@ -13,9 +13,17 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='19' font-size='20'>&#129692;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!-- v3.1 peso: la hoja de fuentes YA NO BLOQUEA el primer render. Se pinta con
+     la del sistema y la web font entra cuando llega (display=swap). El noscript
+     la deja bloqueante si no hay JS, para no quedar nunca sin fuente legible. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700;800&display=swap"></noscript>
 <link rel="preconnect" href="https://www.youtube-nocookie.com">
 <link rel="preconnect" href="https://i.ytimg.com">
+<!-- el poster del hero es lo primero que se ve: se pide de una y con prioridad.
+     Medido 23-sep: mq 5.471 B (320x180) / hq 9.208 B (480x360) / sd 37.940 B
+     (640x480) / maxres 79.593 B. La vara de la obra era 60 KB -> sd entra. -->
+<link rel="preload" as="image" href="https://i.ytimg.com/vi/XqqLSahN48A/sddefault.jpg" fetchpriority="high">
 <style>
   :root{
     --bg:#08080a; --panel:#101014; --panel2:#17171c; --line:#2a2a31;
@@ -284,7 +292,7 @@ if (PIXEL_ID) {
       <div class="device" aria-hidden="true">
         <div class="phone"><div class="screen">
           <div class="pv">
-            <img class="pv-poster" src="https://i.ytimg.com/vi/XqqLSahN48A/mqdefault.jpg" alt="" loading="lazy">
+            <img class="pv-poster" src="https://i.ytimg.com/vi/XqqLSahN48A/sddefault.jpg" alt="" fetchpriority="high" decoding="async">
             <span class="tag">Plano acotado</span><span class="rec">511 laminas</span>
           </div>
           <div class="tl">
@@ -562,10 +570,16 @@ if (PIXEL_ID) {
 
 <script>
 /* VIDEO: la mecanica del molde, linea por linea. Miniatura primero; el iframe
-   de youtube-nocookie entra por detras (z-index) sin controles ni bordes. */
+   de youtube-nocookie entra por detras (z-index) sin controles ni bordes.
+   v3.1 (peso): el HERO ya no espera a window.load — que no dispara hasta que los
+   9 iframes terminan, o sea que el video que la persona ve primero era el ultimo
+   en arrancar. Y los 8 mini entran por IntersectionObserver, de a 3 vivos como
+   maximo; el que sale de pantalla se descarta y vuelve a su miniatura. */
 (function(){
   var con = navigator.connection || {};
   var lento = con.saveData === true || /(^|-)2g$/.test(con.effectiveType || '');
+  if (lento) return; /* internet lento o ahorro de datos: solo miniaturas, cero video */
+
   function crear(el, id, clase, extra){
     var f = document.createElement('iframe');
     f.className = clase;
@@ -575,22 +589,51 @@ if (PIXEL_ID) {
     el.appendChild(f);
     return f;
   }
-  if (lento) return; /* internet lento o ahorro de datos: solo miniaturas, cero video */
-  document.querySelectorAll('.fx[data-yt]').forEach(function(c){
-    if (!c.querySelector('.yt-live')) crear(c, c.dataset.yt, 'yt-live');
-  });
-  window.addEventListener('load', function(){
-    setTimeout(function(){
-      var pv = document.querySelector('.pv');
-      if (!pv || pv.querySelector('.yt-hero')) return;
-      var f = crear(pv, 'XqqLSahN48A', 'yt-hero', '&enablejsapi=1');
-      var n = 0, t = setInterval(function(){
-        n++;
-        try { f.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}), '*'); } catch(e) {}
-        if (n > 15) clearInterval(t);
-      }, 1000);
-    }, 600);
-  });
+
+  /* 1. EL HERO, DE UNA. Es lo primero que se ve: es lo primero que se pide. */
+  var pv = document.querySelector('.pv');
+  if (pv && !pv.querySelector('.yt-hero')){
+    var fh = crear(pv, 'XqqLSahN48A', 'yt-hero', '&enablejsapi=1');
+    /* martillo acotado: 3 golpes, no 15. Safari iOS a veces ignora el autoplay
+       del src y solo obedece a la jsapi. */
+    var n = 0, t = setInterval(function(){
+      n++;
+      try { fh.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}), '*'); } catch(e) {}
+      if (n >= 3) clearInterval(t);
+    }, 1000);
+  }
+
+  /* 2. LOS 8 MINI: solo cuando entran en pantalla, y de a 3. */
+  var TILES = [].slice.call(document.querySelectorAll('.fx[data-yt]'));
+
+  if (!('IntersectionObserver' in window)){
+    /* fail-safe: navegador sin observer -> como antes. Nunca sin video. */
+    TILES.forEach(function(c){ if (!c.querySelector('.yt-live')) crear(c, c.dataset.yt, 'yt-live'); });
+    return;
+  }
+
+  var TOPE = 3, VIVOS = [];
+  function apagar(c){
+    var f = c.querySelector('.yt-live');
+    if (f && f.parentNode) f.parentNode.removeChild(f);  /* vuelve a su miniatura */
+    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
+  }
+  function podar(){            /* el cupo se hace soltando a los que ya no se ven */
+    for (var i = VIVOS.length - 1; i >= 0; i--) if (!VIVOS[i].visible) apagar(VIVOS[i]);
+  }
+  function encender(c){
+    if (!c.visible || c.querySelector('.yt-live')) return;
+    podar();
+    if (VIVOS.length >= TOPE) return;  /* cupo lleno de visibles: se queda la miniatura */
+    crear(c, c.dataset.yt, 'yt-live');
+    VIVOS.push(c);
+  }
+  var io = new IntersectionObserver(function(ens){
+    ens.forEach(function(e){ e.target.visible = e.isIntersecting; });
+    podar();
+    TILES.forEach(encender);
+  }, {rootMargin:'100px 0px'});
+  TILES.forEach(function(c){ io.observe(c); });
 })();
 </script>
 
