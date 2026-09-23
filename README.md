@@ -1,7 +1,9 @@
 # melamina-pro-b
 
 Landing del A/B de melamina, encuadre **B**. Construida con el molde de
-`edicion-pro.com` (CapCut): misma estructura, misma mecanica de video de YouTube,
+`edicion-pro.com` (CapCut): misma estructura, pero el video ya no viene de YouTube: son 9 clips de
+nuestros propios creativos de Meta, alojados en `video/` (ver manifiesto en la
+obra `videos_meta_landings`),
 paleta grafito + un solo acento naranja de herramienta.
 
 - `index.html`    — encuadre base
