@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mas de 850 planos de melamina con medidas, listos para cortar | MELAMINA PRO (v2)</title>
-<meta name="description" content="Mas de 850 planos de melamina con la medida de cada pieza: armarios, cocinas, roperos, escritorios, centros de TV. Listos para cortar. De regalo, mas de 460 clases en video. Pago unico.">
+<title>Mas de 1.600 planos de melamina con medidas, listos para cortar | MELAMINA PRO (v2)</title>
+<meta name="description" content="Mas de 1.600 planos de melamina con la medida de cada pieza: armarios, cocinas, roperos, escritorios, centros de TV. En total 2.562 planos entre melamina, madera y metal, en 7.073 paginas. De regalo, mas de 460 clases en video. Pago unico.">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="Mas de 850 planos de melamina con medidas, listos para cortar | MELAMINA PRO (v2)">
-<meta property="og:description" content="Mas de 850 planos de melamina con la medida de cada pieza: armarios, cocinas, roperos, escritorios, centros de TV. Listos para cortar. De regalo, mas de 460 clases en video. Pago unico.">
+<meta property="og:title" content="Mas de 1.600 planos de melamina con medidas, listos para cortar | MELAMINA PRO (v2)">
+<meta property="og:description" content="Mas de 1.600 planos de melamina con la medida de cada pieza: armarios, cocinas, roperos, escritorios, centros de TV. En total 2.562 planos entre melamina, madera y metal, en 7.073 paginas. De regalo, mas de 460 clases en video. Pago unico.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://estebanninoc.github.io/melamina-pro-b/video/hero.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='19' font-size='20'>&#129692;</text></svg>">
+<meta property="og:image" content="https://planos.melamina.pro/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- v3.1 peso: la hoja de fuentes YA NO BLOQUEA el primer render. Se pinta con
@@ -21,7 +25,7 @@
 <!-- el poster del hero es lo primero que se ve: se pide de una y con prioridad.
      Ya no viene de un tercero: es un frame de nuestro propio clip, 17162 B
      a 360px de ancho. El clip pesa 1190363 B y lo pide el JS, no el parser. -->
-<link rel="preload" as="image" href="../video/hero.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="../video/yt/XqqLSahN48A.jpg" fetchpriority="high">
 <style>
   :root{
     /* v4 PALETA "TALLER" — derivada del target medido, no del gusto.
@@ -80,7 +84,13 @@
 
   /* MARCA */
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:1.18rem;letter-spacing:-.04em}
-  .logo .mark{width:30px;height:30px;border-radius:8px;background:var(--acc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  /* v6: la marca ya no es un icono generico dentro de una pastilla naranja:
+     es la M de MELAMINA PRO con glow, servida DESDE ESTE REPO (img/), nunca
+     hotlinkeada. Contraste medido del trazo (p90) contra --bg: 6,96:1 -- el
+     piso de WCAG 1.4.11 para grafico es 3:1, o sea 2,3x de sobra. Va con
+     width/height puestos: el layout no salta mientras carga (4127 B). */
+  .logo .mark{width:30px;height:30px;display:block;flex-shrink:0;object-fit:contain}
+  .logo .mark.big{width:52px;height:52px}
   .logo .sub{font-weight:700;font-size:.78rem;letter-spacing:.14em;color:var(--acc2);text-transform:uppercase;margin-left:2px;align-self:flex-end;padding-bottom:2px}
 
   nav{position:sticky;top:0;z-index:50;background:rgba(26,18,11,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
@@ -116,7 +126,7 @@
   .phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:80px;height:6px;border-radius:99px;background:var(--line);z-index:3}
   .screen{border-radius:32px;overflow:hidden;background:var(--deep);border:1px solid var(--line)}
   .pv{position:relative;overflow:hidden;aspect-ratio:9/12;background:radial-gradient(120% 75% at 50% 22%,rgba(255,106,19,.30),transparent 62%),linear-gradient(165deg,var(--panel2),var(--bg));display:flex;align-items:center;justify-content:center}
-  .pv .vd-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:1}
+  .pv .yt-hero{position:absolute;top:50%;left:50%;width:102%;height:136%;transform:translate(-50%,-50%);border:0;pointer-events:none;z-index:1}
   .pv .pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(.85)}
   .pv .tag{position:absolute;z-index:2;top:12px;left:12px;font-size:.6rem;font-weight:800;color:var(--ink);background:var(--acc);padding:4px 10px;border-radius:99px}
   .pv .rec{position:absolute;z-index:2;top:12px;right:12px;font-size:.58rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:5px}
@@ -156,7 +166,7 @@
   .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
   .fx{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 1px rgba(255,106,19,.10),0 10px 28px -22px rgba(255,106,19,.8);display:flex;align-items:flex-end;padding:14px;isolation:isolate;transition:transform .18s ease,border-color .18s}
   .fx:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(255,106,19,.45),0 14px 34px -16px rgba(255,106,19,.9)}
-  .fx .vd-live{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:-1}
+  .fx .yt-live{position:absolute;top:50%;left:50%;width:101%;height:135%;transform:translate(-50%,-50%);border:0;pointer-events:none;z-index:-1}
   .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
   .fx::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--g)}
   .fx::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 60% at 30% 18%,rgba(255,255,255,.18),transparent 55%),linear-gradient(180deg,transparent 28%,rgba(0,0,0,.82))}
@@ -171,10 +181,10 @@
   .fx-note{color:var(--dim);font-size:1rem;margin-top:16px;max-width:760px}
   /* reja de encuadre: si entra un 16:9 se ve CHICO Y BIEN, nunca grande y roto */
   .fx.h16{aspect-ratio:16/9}
-  .fx.h16 .vd-live{object-fit:contain;background:var(--bg)}
+  .fx.h16 .yt-live{top:0;left:0;width:100%;height:100%;transform:none}
   .fx.h16 .fx-th{object-fit:contain;background:var(--bg)}
   .pv.h16{aspect-ratio:16/9}
-  .pv.h16 .vd-hero{object-fit:contain;background:var(--bg)}
+  .pv.h16 .yt-hero{top:0;left:0;width:100%;height:100%;transform:none}
   .pv.h16 .pv-poster{object-fit:contain;background:var(--bg)}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
@@ -188,6 +198,7 @@
   details:last-child{border-bottom:none}
   summary{cursor:pointer;list-style:none;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:1.03rem;gap:14px}
   summary::-webkit-details-marker{display:none}
+  summary>span:first-child{min-width:0;overflow-wrap:anywhere}
   summary .meta{color:var(--acc2);font-weight:700;font-size:1rem;flex-shrink:0}
   summary::after{content:"+";color:var(--acc);font-size:1.5rem;font-weight:300;flex-shrink:0}
   details[open] summary::after{content:"\2013"}
@@ -261,7 +272,11 @@
   .bump .bx{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--ink);transition:.15s;margin-top:2px}
   .bump input:checked ~ .bx{background:var(--acc);border-color:var(--acc);box-shadow:0 0 16px -2px rgba(255,106,19,.9)}
   .bump input:checked ~ .bx::after{content:"\2713"}
-  .bump .bt{flex:1;font-size:1.05rem;line-height:1.35}
+  /* v6: el .bt no tenia min-width:0, y con .bx (22) y .bp (precio, no
+     encoge) le quedaban 128,4 px utiles a 390 px: el subtitulo del pack
+     industrial caia en 5 renglones y empujaba el precio hacia abajo. Con
+     el precio en su propio renglon en pantalla angosta pasa a 216 px. */
+  .bump .bt{flex:1 1 auto;min-width:0;font-size:1.05rem;line-height:1.35;overflow-wrap:anywhere}
   .bump .bt small{display:block;color:var(--mut);font-weight:500;font-size:1rem;margin-top:4px}
   .bump .bp{font-family:var(--disp);font-weight:900;font-size:1.05rem;color:var(--acc2);white-space:nowrap}
   .bump-nota{font-size:1rem;color:var(--mut);text-align:center;background:var(--panel2);border:1px dashed var(--line);border-radius:10px;padding:8px 12px}
@@ -271,12 +286,11 @@
   .aviso b{color:var(--acc2)}
 
   footer{border-top:1px solid var(--line);padding:40px 0 110px;text-align:center;color:var(--mut);font-size:1rem}
-  /* v5: fuera el <p class="disc"> largo (orden de Esteban: "pongamos 2026
-     Melamina Pro y ya"). Pero la pagina NO queda sin legales: un renglon de
-     enlaces en letra chica, que es otra cosa que el parrafo que mando sacar.
-     Va a 1rem (17px) porque el target es 59,6% de 45 anos o mas. */
-  .legal{margin-top:10px;font-size:1rem;color:var(--mut)}
-  .legal a{text-decoration:underline;text-underline-offset:3px}
+  /* v6: fuera tambien el renglon de enlaces legales (orden de Esteban:
+     "lo de abajo de terminos y todo eso, solo quitalo y dejemoslo hasta 2026
+     Melamina Pro"). Las PAGINAS de legales siguen publicadas y respondiendo
+     200 en /terminos/ /reembolsos/ /privacidad/ /contacto/: lo unico que se
+     saco es el enlace del pie. */
 
   .buybar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(26,18,11,.94);backdrop-filter:blur(12px);border-top:1px solid rgba(255,106,19,.45);box-shadow:0 -10px 40px -18px rgba(255,106,19,.9);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
   .buybar .p{font-family:var(--disp);font-weight:900;font-size:1.22rem;letter-spacing:-.02em;line-height:1.1;color:var(--acc);text-shadow:0 0 20px rgba(255,106,19,.7)}
@@ -287,6 +301,12 @@
     .badges{grid-template-columns:repeat(2,1fr)}
     .grid,.steps,.obj{grid-template-columns:1fr}
     .acc-body ul{grid-template-columns:1fr}
+    /* v6: a 390px la pastilla .meta (196 px, flex-shrink:0) dejaba 62 px
+       al titulo y su palabra mas larga mide 89 => se salia de la caja.
+       Baja a su propio renglon y el titulo recupera 274 px utiles. */
+    summary{flex-wrap:wrap;row-gap:4px}
+    summary .meta{order:3;flex-basis:100%;text-align:left}
+    summary>span:first-child{flex:1 1 auto}
     .hero-grid{grid-template-columns:1fr;text-align:center;gap:36px}
     .hero-copy .pill{margin-left:auto;margin-right:auto}
     header p.sub{margin-left:auto;margin-right:auto}
@@ -301,6 +321,8 @@
     .fx.g7,.fx.g8{display:none}
     .band .wrap{padding:48px 20px}
     .st{flex-wrap:wrap}
+    .bump{flex-wrap:wrap;row-gap:2px}
+    .bump .bp{order:3;flex-basis:100%;padding-left:34px}
     .buybar{display:flex}
   }
 </style>
@@ -323,7 +345,7 @@ if (PIXEL_ID) {
 
 <nav>
   <div class="wrap">
-    <div class="logo"><span class="mark"><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='#0a0603' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='7.4'/><path d='M12 4.6v3M12 16.4v3M4.6 12h3M16.4 12h3M6.8 6.8l2.1 2.1M15.1 15.1l2.1 2.1M17.2 6.8l-2.1 2.1M8.9 15.1l-2.1 2.1'/></svg></span>MELAMINA<span class="sub">PRO</span></div>
+    <div class="logo"><img class="mark" src="../img/logo-glow-96.png" width="30" height="30" alt="Melamina Pro" decoding="async">MELAMINA<span class="sub">PRO</span></div>
     <a href="#comprar" class="btn">Lo quiero</a>
   </div>
 </nav>
@@ -333,15 +355,15 @@ if (PIXEL_ID) {
     <div class="hero-grid">
       <div class="hero-copy">
         <h1>No dibujes de cero.<br>Abre el plano y <span class="cut">empieza a cortar</span>.</h1>
-        <p class="sub"><b>Mas de 850 planos</b> con la medida de cada pieza. Los abres y vas directo a cortar. De regalo, <b>mas de 460 clases en video</b>.</p>
+        <p class="sub"><b>Mas de 1.600 planos de melamina</b> con la medida de cada pieza. Los abres y vas directo a cortar. De regalo, <b>mas de 460 clases en video</b>.</p>
         <div class="cta-row"><a href="#comprar" class="btn big" id="btn-hero">Ver la oferta &rarr;</a></div>
         <div class="cta-note">Pago unico &middot; Acceso inmediato</div>
       </div>
       <div class="device" aria-hidden="true">
         <div class="phone"><div class="screen">
           <div class="pv">
-            <img class="pv-poster" src="../video/hero.jpg" alt="" fetchpriority="high" decoding="async">
-            <span class="tag">Con medidas</span><span class="rec">+850 planos</span>
+            <img class="pv-poster" src="../video/yt/XqqLSahN48A.jpg" alt="" width="360" height="640" fetchpriority="high" decoding="async">
+            <span class="tag">Con medidas</span><span class="rec">+1.600 planos</span>
           </div>
           <div class="tl">
             <div class="tools"><i></i><i></i><i></i><i></i><i></i></div>
@@ -353,10 +375,10 @@ if (PIXEL_ID) {
         </div></div>
       </div>
     </div>
-    <div class="badges"><div class="badge"><div class="n">+850</div><div class="l">planos con medidas</div></div>
-      <div class="badge"><div class="n">1.175</div><div class="l">paginas de planos</div></div>
+    <div class="badges"><div class="badge"><div class="n">+1.600</div><div class="l">planos de melamina</div></div>
+      <div class="badge"><div class="n">7.073</div><div class="l">paginas de planos</div></div>
       <div class="badge"><div class="n">+460</div><div class="l">clases de regalo</div></div>
-      <div class="badge"><div class="n">39</div><div class="l">descargas</div></div></div>
+      <div class="badge"><div class="n">2.562</div><div class="l">planos en total</div></div></div>
   </div>
 </header>
 
@@ -365,16 +387,16 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="eyebrow">Que hay adentro</div>
     <h2 class="title">Planos de lo que la gente pide todos los dias</h2>
-    <p class="lead">Closets, cocinas, roperos, escritorios, centros de TV. Asi se ven armados:</p>
+    <p class="lead">Closets, cocinas, roperos, escritorios y centros de TV. Videos p&uacute;blicos de YouTube, de sus autores, no del curso:</p>
     <div class="gallery">
-      <div class="fx g1" data-v="v1.mp4"><img class="fx-th" src="../video/v1.jpg" alt="" loading="lazy"><span class="ply"></span><span>Corte y<br>armado</span></div>
-      <div class="fx g2" data-v="v2.mp4"><img class="fx-th" src="../video/v2.jpg" alt="" loading="lazy"><span class="ply"></span><span>Mueble<br>terminado</span></div>
-      <div class="fx g3" data-v="v3.mp4"><img class="fx-th" src="../video/v3.jpg" alt="" loading="lazy"><span class="ply"></span><span>Mesas y<br>escritorios</span></div>
-      <div class="fx g4" data-v="v4.mp4"><img class="fx-th" src="../video/v4.jpg" alt="" loading="lazy"><span class="ply"></span><span>Armarios<br>a medida</span></div>
-      <div class="fx g5" data-v="v5.mp4"><img class="fx-th" src="../video/v5.jpg" alt="" loading="lazy"><span class="ply"></span><span>Herrajes<br>y bisagras</span></div>
-      <div class="fx g6" data-v="v6.mp4"><img class="fx-th" src="../video/v6.jpg" alt="" loading="lazy"><span class="ply"></span><span>Cajones<br>y correderas</span></div>
-      <div class="fx g7" data-v="v7.mp4"><img class="fx-th" src="../video/v7.jpg" alt="" loading="lazy"><span class="ply"></span><span>Montaje<br>e instalacion</span></div>
-      <div class="fx g8" data-v="v8.mp4"><img class="fx-th" src="../video/v8.jpg" alt="" loading="lazy"><span class="ply"></span><span>Estructura<br>y despiece</span></div>
+      <div class="fx g1" data-yt="fJlO5m2FwHU"><img class="fx-th" src="../video/yt/fJlO5m2FwHU.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Cocina<br>integral</span></div>
+      <div class="fx g2" data-yt="8kLQJuBvoqM"><img class="fx-th" src="../video/yt/8kLQJuBvoqM.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Cl&oacute;set por<br>m&oacute;dulos</span></div>
+      <div class="fx g3" data-yt="hVAE2VxnDWU"><img class="fx-th" src="../video/yt/hVAE2VxnDWU.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Bisagras<br>de cazoleta</span></div>
+      <div class="fx g4" data-yt="XpKsJZWDKEg"><img class="fx-th" src="../video/yt/XpKsJZWDKEg.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Correderas<br>y cajones</span></div>
+      <div class="fx g5" data-yt="FgtS5U57lZY"><img class="fx-th" src="../video/yt/FgtS5U57lZY.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Corte sin<br>astillar</span></div>
+      <div class="fx g6" data-yt="oz6lADSozHM"><img class="fx-th" src="../video/yt/oz6lADSozHM.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Canteado<br>con enchapadora</span></div>
+      <div class="fx g7" data-yt="4v-L1Ls9OXs"><img class="fx-th" src="../video/yt/4v-L1Ls9OXs.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Armado<br>con minifix</span></div>
+      <div class="fx g8" data-yt="jAyRANTc104"><img class="fx-th" src="../video/yt/jAyRANTc104.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Herramientas<br>del taller</span></div>
     </div>
   </div>
 </section>
@@ -389,16 +411,17 @@ if (PIXEL_ID) {
       <div class="price-now" id="precio-grande">&nbsp;</div>
       <div style="color:var(--mut);margin-top:2px">pago unico &middot; acceso de por vida</div>
       <div style="color:var(--dim);font-size:.85rem;margin-top:10px">Pagas en la moneda de tu pais.</div>
-      <ul class="price-list"><li><b>Mas de 850 planos</b> con la medida de cada pieza</li>
+      <ul class="price-list"><li><b>Mas de 1.600 planos de melamina</b> con la medida de cada pieza</li>
+<li><b>2.562 planos en total</b>: melamina, madera y metal, en 7.073 paginas</li>
 <li>Closets, cocinas, roperos, escritorios, centros de TV</li>
 <li><b>Mega Pack</b>: 5 carpetas mas</li>
 <li><b>De regalo</b>: mas de 460 clases en video</li>
-<li>39 descargas, tuyas para siempre</li>
+<li><b>Todo se descarga</b>: queda en tu disco y no vence</li>
 <li>Garantia de 3 dias sin preguntas</li></ul>
       <div class="bumps">
         <label class="bump" id="bump-fx">
           <input type="checkbox"><span class="bx"></span>
-          <span class="bt">&#128295; <b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs, 445 planos con medidas, 1344 paginas en acero y madera.</small></span>
+          <span class="bt">&#128295; <b>Pack MUEBLE INDUSTRIAL en metal</b><small><b>Metal y madera</b>: mesas, estantes, racks. <b>408 planos acotados</b>. <b>Se paga aparte.</b></small></span>
           <span class="bp" id="bp-fx">&nbsp;</span>
         </label>
         <label class="bump" id="bump-cin">
@@ -451,25 +474,17 @@ if (PIXEL_ID) {
     <h2 class="title">Contado, no prometido</h2>
     <p class="lead">Ningun numero esta redondeado hacia arriba.</p>
     <div class="grid">
-      <div class="card"><div class="ic">&#128208;</div><h3>Mas de 850 planos</h3><p>Con la medida de cada pieza. Los abres y vas directo al tablero.</p></div>
-      <div class="card"><div class="ic">&#128196;</div><h3>1.175 paginas de planos</h3><p>Armarios, cocinas, roperos, escritorios y centros de TV. Listos para el celular.</p></div>
+      <div class="card"><div class="ic">&#128208;</div><h3>Mas de 1.600 planos de melamina</h3><p>Con la medida de cada pieza. Los abres y vas directo al tablero.</p></div>
+      <div class="card"><div class="ic">&#128196;</div><h3>7.073 paginas de planos</h3><p>Armarios, cocinas, roperos, escritorios y centros de TV. Listos para el celular.</p></div>
       <div class="card"><div class="ic">&#127909;</div><h3>De regalo: +460 clases en video</h3><p>Por tema y a tu ritmo: medir, despiezar, cortar, cantear, armar y cobrar.</p></div>
       <div class="card"><div class="ic">&#128230;</div><h3>5 carpetas del Mega Pack</h3><p>Catalogo, guia teorica, SketchUp Pro y ejemplos de armado.</p></div>
       <div class="card"><div class="ic">&#128295;</div><h3>60 archivos editables</h3><p>14 SketchUp, 11 AutoCAD, 33 DXF y 2 Excel. Cambias una medida y el corte se recalcula.</p></div>
-      <div class="card"><div class="ic">&#128273;</div><h3>39 descargas</h3><p>Todo queda en tu zona de descarga, y es tuyo para siempre.</p></div>
+      <div class="card"><div class="ic">&#128273;</div><h3>Todo se descarga</h3><p>Lo bajas a tu disco de una vez. Es tuyo para siempre y no vence.</p></div>
     </div>
     <div style="margin-top:34px"><a href="#comprar" class="btn">Lo quiero completo &rarr;</a></div>
   </div>
 </section>
 
-<!-- BANDA -->
-<section class="band" style="padding:0">
-  <div class="wrap">
-    <div class="eyebrow">De la medida al mueble</div>
-    <h2>Ya vienen con la medida de cada pieza</h2>
-    <p>Abres, optimizas el corte y vas al tablero. Sin dibujar de cero.</p>
-  </div>
-</section>
 
 <!-- GATILLO 3 : PRUEBA DE ENTREGA (el paso a paso post-compra) -->
 <section style="background:var(--panel)">
@@ -479,7 +494,7 @@ if (PIXEL_ID) {
     <p class="lead">Sin envio y sin espera. Descarga directa.</p>
     <div class="steps">
       <div class="step"><div class="num">1</div><h3>Pagas una vez</h3><p>Un solo pago. No es suscripcion.</p></div>
-      <div class="step"><div class="num">2</div><h3>Se abre tu zona de descarga</h3><p>Al confirmar el pago llegas a las 39 descargas, ordenadas por bloque.</p></div>
+      <div class="step"><div class="num">2</div><h3>Se abre tu zona de descarga</h3><p>Al confirmar el pago se abre tu zona privada, ordenada por bloque, y bajas todo.</p></div>
       <div class="step"><div class="num">3</div><h3>Abres y cortas</h3><p>Bajas el plano que necesitas hoy. El resto queda ahi.</p></div>
     </div>
     <div style="margin-top:34px"><a href="#comprar" class="btn">Empezar ahora &rarr;</a></div>
@@ -509,7 +524,7 @@ if (PIXEL_ID) {
     <p class="lead">Contado archivo por archivo.</p>
     <div class="acc">
       <details>
-        <summary><span>1 &middot; Planos y catalogos, archivo por archivo</span><span class="meta">18 archivos &middot; 522 planos</span></summary>
+        <summary><span>1 &middot; Planos y catalogos, archivo por archivo</span><span class="meta">18 archivos &middot; 751 planos</span></summary>
         <div class="acc-body">
           <ul><li>100 Planos de Melamina (Despieces) &middot; <b>86 planos con medidas</b></li>
 <li>Catalogo de Armarios &middot; <b>47 planos con medidas</b></li>
@@ -528,15 +543,29 @@ if (PIXEL_ID) {
 <li>Disenar Cocina &middot; <b>3 planos</b> + guia</li>
 <li>Manual Melamina &middot; <b>manual completo</b>, 298 paginas</li>
 <li>Muebles Infantiles &middot; <b>guia</b> de 40 paginas</li>
-<li>Bono: Mueble Industrial (Metal + Madera) &middot; <b>285 planos</b> de acero y madera</li></ul>
+<li><b>Bono incluido</b>: Mueble Industrial (Metal + Madera) &middot; <b>285 planos</b> de acero y madera</li></ul>
         </div>
       </details>
       <details>
-        <summary><span>2 &middot; Packs de planos de melamina</span><span class="meta">3 packs &middot; 330 planos</span></summary>
+        <summary><span>2 &middot; Packs de planos de melamina</span><span class="meta">5 packs &middot; 427 planos</span></summary>
         <div class="acc-body">
           <ul><li>Pack Melamina &middot; <b>157 planos con medidas</b></li>
+<li>Megapack de planos industriales (metal) &middot; <b>95 planos con medidas</b></li>
 <li>Planos para muebles de melamina &middot; <b>87 planos con medidas</b></li>
-<li>Libro de despiece &middot; <b>86 planos con medidas</b></li></ul>
+<li>Libro de despiece &middot; <b>86 planos con medidas</b></li>
+<li>Libro de despiece (2a copia) &middot; <b>2 planos nuevos</b>, el resto ya viene en otro archivo</li></ul>
+        </div>
+      </details>
+      <details>
+        <summary><span>3 &middot; Planos dentro de las carpetas del curso</span><span class="meta">67 PDF &middot; 1.384 planos</span></summary>
+        <div class="acc-body">
+          <ul><li>Manuales sobre Melamina &middot; <b>646 planos</b> en 19 PDF</li>
+<li>Planos y Proyectos de Carpinteria &middot; <b>581 planos</b> en 16 PDF</li>
+<li>Planos y Plantillas &middot; <b>116 planos</b> en 18 PDF</li>
+<li>Carpinteria en Aluminio &middot; <b>18 planos</b> en 2 PDF</li>
+<li>Planos de las Clases &middot; <b>17 planos</b> en 10 PDF</li>
+<li>Soldadura Electrica &middot; <b>5 planos</b> en 1 PDF</li>
+<li>Aprende SketchUp &middot; <b>1 plano</b> en 1 PDF</li></ul>
         </div>
       </details>
       <details>
@@ -551,7 +580,7 @@ if (PIXEL_ID) {
       </details>
       <details>
         <summary><span>4 &middot; Libros PRO</span><span class="meta">1 descarga</span></summary>
-        <div class="acc-body"><li>Libros de Muebles Industriales y mas</li></div>
+        <div class="acc-body"><ul><li>Libros de Muebles Industriales y mas</li></ul></div>
       </details>
       <details>
         <summary><span>5 &middot; De regalo: el curso completo en video</span><span class="meta">+460 clases</span></summary>
@@ -583,7 +612,7 @@ if (PIXEL_ID) {
     <h2 class="title">Todo lo que entra, con su precio suelto</h2>
     <p class="lead">Cada uno se vende por su lado. Aqui entran juntos.</p>
     <div class="stack">
-      <div class="st"><div class="ic">&#128230;</div><div class="tt"><b>Biblioteca completa de planos</b><small>+850 planos en 1.175 paginas, mas el Mega Pack y las +460 clases de regalo</small></div><div class="vv"><s id="st-1">&nbsp;</s><em>incluido</em></div></div>
+      <div class="st"><div class="ic">&#128230;</div><div class="tt"><b>Biblioteca completa de planos</b><small>1.600 planos de melamina y 2.562 en total, en 7.073 paginas, mas las +460 clases de regalo</small></div><div class="vv"><s id="st-1">&nbsp;</s><em>incluido</em></div></div>
       <div class="st"><div class="ic">&#128295;</div><div class="tt"><b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs, 445 planos, 1344 paginas en acero y madera</small></div><div class="vv"><s id="st-2">&nbsp;</s><em>marcalo abajo</em></div></div>
       <div class="st"><div class="ic">&#128187;</div><div class="tt"><b>Editables para cortar</b><small>60 archivos: 14 SketchUp, 11 AutoCAD, 33 DXF, 2 Excel de despiece</small></div><div class="vv"><s id="st-3">&nbsp;</s><em>marcalo abajo</em></div></div>
       <div class="st"><div class="ic">&#128218;</div><div class="tt"><b>Mega Pack de planos</b><small>5 carpetas: catalogo, guia teorica, SketchUp Pro, ejemplos de armado</small></div><div class="vv"><em>incluido</em></div></div>
@@ -598,11 +627,11 @@ if (PIXEL_ID) {
     <div class="eyebrow">Preguntas frecuentes</div>
     <h2 class="title">Lo que todos preguntan</h2>
     <div class="acc">
-      <details><summary><span>&iquest;Como recibo el material?</span></summary><div class="acc-body">Apenas se confirma el pago llegas a tu zona de descarga privada con las 39 descargas ordenadas por bloque, los planos primero. Descargas lo que quieras a tu disco y es tuyo para siempre.</div></details>
+      <details><summary><span>&iquest;Como recibo el material?</span></summary><div class="acc-body">Apenas se confirma el pago llegas a tu zona de descarga privada ordenada por bloque, los planos primero. Descargas lo que quieras a tu disco y es tuyo para siempre.</div></details>
       <details><summary><span>&iquest;Necesito experiencia previa en carpinteria?</span></summary><div class="acc-body">No. El primer bloque arranca en el tablero crudo: que es la melamina, que espesores existen y como se mide. De ahi sube hasta el mueble instalado.</div></details>
       <details><summary><span>&iquest;Necesito maquinas caras?</span></summary><div class="acc-body">No para empezar. El corte del tablero lo hace el deposito donde compras la melamina con tu lista de despiece. Para armar necesitas atornillador, una plancha para el tapacanto y herramienta de mano.</div></details>
       <details><summary><span>&iquest;Los planos traen las medidas?</span></summary><div class="acc-body">Si. Cada pieza va con su medida puesta en el plano (en el oficio se dice <b>acotado</b>), lista para pasar al despiece. Vienen en PDF listos para imprimir o para abrir en el celular, y hay 3 archivos mas de despiece especifico.</div></details>
-      <details><summary><span>&iquest;Cuantos planos son exactamente?</span></summary><div class="acc-body"><b>852 planos con medidas</b>, contados uno por uno sobre la entrega real: se midio pagina por pagina cuales son lamina con cotas y cuales no. El numero que ves arriba esta <b>redondeado hacia abajo</b>, nunca hacia arriba. Y no incluye el Mega Pack ni las carpetas de planos del curso, que suman mas.</div></details>
+      <details><summary><span>&iquest;Cuantos planos son exactamente?</span></summary><div class="acc-body"><b>1.634 planos de melamina con medidas</b>, y <b>2.562 planos en total</b> si se cuentan tambien los de madera maciza y los de metal. Se contaron uno por uno sobre la entrega real: se midio pagina por pagina cuales son lamina con cotas y cuales no, en <b>7.073 paginas</b> de PDF. Y se descontaron las paginas REPETIDAS: hay archivos que traen los mismos planos, y cada plano se cuenta <b>una sola vez</b>. El numero que ves arriba esta <b>redondeado hacia abajo</b>, nunca hacia arriba. Aparte va el Pack Mueble Industrial en metal, que suma 408 planos mas.</div></details>
       <details><summary><span>&iquest;Es un pago mensual?</span></summary><div class="acc-body">No. Es un pago unico. No se renueva, no es suscripcion y el acceso no vence.</div></details>
       <details><summary><span>&iquest;Y si no me sirve?</span></summary><div class="acc-body">Tienes 3 dias de garantia. Si el material no es lo que esperabas escribes y se devuelve el 100%, sin preguntas y sin letra chica.</div></details></div>
     <div style="margin-top:34px;text-align:center"><a href="#comprar" class="btn big">Quiero mi acceso &rarr;</a></div>
@@ -611,9 +640,8 @@ if (PIXEL_ID) {
 
 <footer>
   <div class="wrap">
-    <div class="logo" style="justify-content:center;margin-bottom:12px"><span class="mark"><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='#0a0603' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='7.4'/><path d='M12 4.6v3M12 16.4v3M4.6 12h3M16.4 12h3M6.8 6.8l2.1 2.1M15.1 15.1l2.1 2.1M17.2 6.8l-2.1 2.1M8.9 15.1l-2.1 2.1'/></svg></span>MELAMINA<span class="sub">PRO</span></div>
+    <div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="../img/logo-glow-96.png" width="52" height="52" alt="Melamina Pro" decoding="async">MELAMINA<span class="sub">PRO</span></div>
     <p>&copy; 2026 &middot; Melamina Pro</p>
-    <p class="legal"><a href="/terminos/">Terminos</a> &middot; <a href="/reembolsos/">Reembolsos</a> &middot; <a href="/privacidad/">Privacidad</a> &middot; <a href="/contacto/">Contacto</a></p>
   </div>
 </footer>
 
@@ -623,63 +651,75 @@ if (PIXEL_ID) {
 </div>
 
 <script>
-/* VIDEO: los clips son los mismos creativos que corren en nuestros anuncios de
-   Meta, alojados en este repo. Ya no hay iframe ni tercero: <video> del mismo
-   origen, mudo, en loop y sin controles.
-   Se conserva la mecanica de peso que se gano antes: el HERO arranca de una (no
-   espera window.load, que no dispara hasta que termina todo lo demas) y los 8
-   mini entran por IntersectionObserver, de a 3 vivos como maximo; el que sale de
-   pantalla suelta su descarga y vuelve a su poster. */
+/* VIDEO — v6: vuelven los shorts de YouTube (orden de Esteban), pero con la
+   MECANICA DE PESO que gano la v5, no con la de la version vieja que metia los
+   8 iframes de una.
+   Costo medido de un embed: ~1,77 MB (145 KB de HTML + 1,63 MB de base.js).
+   Por eso:
+     - TOPE DURO: 0 bytes de YouTube antes de que el hero este inyectado. No hay
+       preconnect ni preload en el <head>: el preconnect lo pone ESTE script,
+       una linea antes de crear el hero.
+     - el HERO arranca primero y de una (no espera window.load, que no dispara
+       hasta que termina todo lo demas).
+     - los 8 mini entran por IntersectionObserver, de a 3 vivos como maximo; el
+       que sale de pantalla suelta su iframe (corta la descarga) y vuelve a su
+       poster, que es un JPG de ESTE repo.
+   Los clips propios NO se borraron: siguen en video/, sin referenciar. */
 (function(){
-  var BASE = '../video/';
   var con = navigator.connection || {};
   var lento = con.saveData === true || /(^|-)2g$/.test(con.effectiveType || '');
   if (lento) return; /* internet lento o ahorro de datos: solo posters, cero video */
 
-  function prender(el, arch, clase){
-    var v = el.querySelector('video.' + clase);
-    if (!v){
-      v = document.createElement('video');
-      v.className = clase;
-      v.muted = true; v.defaultMuted = true; v.loop = true;
-      v.playsInline = true;
-      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-      v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1;
-      el.appendChild(v);
-    }
-    if (!v.getAttribute('src')){ v.preload = 'auto'; v.src = BASE + arch; }
-    var p = v.play(); if (p && p['catch']) p['catch'](function(){});
-    return v;
+  var CALIENTE = false;
+  function calentar(){
+    if (CALIENTE) return; CALIENTE = true;
+    ['https://www.youtube-nocookie.com','https://i.ytimg.com'].forEach(function(h){
+      var l = document.createElement('link'); l.rel = 'preconnect'; l.href = h;
+      l.crossOrigin = ''; document.head.appendChild(l);
+    });
+  }
+  function prender(el, id, clase){
+    var f = el.querySelector('iframe.' + clase);
+    if (f) return f;
+    calentar();
+    f = document.createElement('iframe');
+    f.className = clase;
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+            '?autoplay=1&mute=1&loop=1&playlist=' + id +
+            '&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3';
+    f.allow = 'autoplay; encrypted-media';
+    f.setAttribute('loading','eager');
+    f.tabIndex = -1; f.setAttribute('aria-hidden','true');
+    el.appendChild(f);
+    return f;
+  }
+  function soltar(c){
+    var f = c.querySelector('iframe.yt-live');
+    if (f){ f.src = 'about:blank'; if (f.parentNode) f.parentNode.removeChild(f); }
+    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
   }
 
-  /* 1. EL HERO, DE UNA. Es lo primero que se ve: es lo primero que se pide. */
+  /* 1. EL HERO, PRIMERO. Hasta esta linea la pagina no pidio un byte a YouTube. */
   var pv = document.querySelector('.pv');
-  if (pv) prender(pv, 'hero.mp4', 'vd-hero');
+  if (pv) prender(pv, 'XqqLSahN48A', 'yt-hero');
 
   /* 2. LOS 8 MINI: solo cuando entran en pantalla, y de a 3. */
-  var TILES = [].slice.call(document.querySelectorAll('.fx[data-v]'));
+  var TILES = [].slice.call(document.querySelectorAll('.fx[data-yt]'));
+  var TOPE = 3, VIVOS = [];
 
   if (!('IntersectionObserver' in window)){
-    /* fail-safe: navegador sin observer -> todos, como antes. Nunca sin video. */
-    TILES.forEach(function(c){ prender(c, c.dataset.v, 'vd-live'); });
+    /* fail-safe: sin observer, los 3 primeros y nada mas. Nunca los 8. */
+    TILES.slice(0, TOPE).forEach(function(c){ prender(c, c.dataset.yt, 'yt-live'); });
     return;
-  }
-
-  var TOPE = 3, VIVOS = [];
-  function soltar(c){
-    var v = c.querySelector('video.vd-live');
-    if (v){ v.pause(); v.removeAttribute('src'); v.load(); /* corta la descarga */
-            if (v.parentNode) v.parentNode.removeChild(v); }
-    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
   }
   function podar(){            /* el cupo se hace soltando a los que ya no se ven */
     for (var i = VIVOS.length - 1; i >= 0; i--) if (!VIVOS[i].visible) soltar(VIVOS[i]);
   }
   function encender(c){
-    if (!c.visible || c.querySelector('video.vd-live')) return;
+    if (!c.visible || c.querySelector('iframe.yt-live')) return;
     podar();
     if (VIVOS.length >= TOPE) return;  /* cupo lleno de visibles: se queda el poster */
-    prender(c, c.dataset.v, 'vd-live');
+    prender(c, c.dataset.yt, 'yt-live');
     VIVOS.push(c);
   }
   var io = new IntersectionObserver(function(ens){
