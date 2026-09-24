@@ -274,10 +274,13 @@
     header p.sub{margin-left:auto;margin-right:auto}
     .cta-row{justify-content:center}
     .device{width:225px;margin-top:4px}
-    .gallery{grid-template-columns:repeat(2,1fr);gap:9px}
-    .fx{padding:10px;border-radius:11px}
-    .fx span{font-size:1rem}
+    .gallery{grid-template-columns:repeat(3,1fr);gap:8px}
+    .fx{padding:9px;border-radius:11px}
+    .fx span{font-size:.72rem;line-height:1.12}
     .fx .ply{display:none}
+    /* 6 tiles en 3 columnas = 2 filas exactas, el molde de CapCut. Los 2 ultimos
+       quedan solo en escritorio; display:none => el observer nunca los inyecta. */
+    .fx.g7,.fx.g8{display:none}
     .band .wrap{padding:48px 20px}
     .st{flex-wrap:wrap}
     .buybar{display:flex}
