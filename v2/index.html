@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mas de 850 planos de melamina acotados, listos para cortar | MELAMINA PRO (v2)</title>
-<meta name="description" content="Mas de 850 planos acotados de melamina: armarios, cocinas, roperos, escritorios, centros de TV. Con la medida de cada pieza, listos para cortar y armar. De regalo, mas de 460 clases en video organizadas por tema. Pago unico.">
+<title>Mas de 850 planos de melamina con medidas, listos para cortar | MELAMINA PRO (v2)</title>
+<meta name="description" content="Mas de 850 planos de melamina con la medida de cada pieza: armarios, cocinas, roperos, escritorios, centros de TV. Listos para cortar. De regalo, mas de 460 clases en video. Pago unico.">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="Mas de 850 planos de melamina acotados, listos para cortar | MELAMINA PRO (v2)">
-<meta property="og:description" content="Mas de 850 planos acotados de melamina: armarios, cocinas, roperos, escritorios, centros de TV. Con la medida de cada pieza, listos para cortar y armar. De regalo, mas de 460 clases en video organizadas por tema. Pago unico.">
+<meta property="og:title" content="Mas de 850 planos de melamina con medidas, listos para cortar | MELAMINA PRO (v2)">
+<meta property="og:description" content="Mas de 850 planos de melamina con la medida de cada pieza: armarios, cocinas, roperos, escritorios, centros de TV. Listos para cortar. De regalo, mas de 460 clases en video. Pago unico.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://estebanninoc.github.io/melamina-pro-b/video/hero.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='19' font-size='20'>&#129692;</text></svg>">
@@ -37,14 +37,20 @@
        pasa a ser color de ACCION (fondo de pastilla y cifra grande) y el texto
        chico de acento se va a --acc2, que si da 8,79:1. */
     --acc:#ff6a13; --acc2:#ff9a4d; --ink:#0d0500;        /* ink sobre acc: 7,05 */
-    /* --acc3 TEAL HERRAJE = el 2o acento, elegido POR EL TARGET: con 76% de
-       hombres, ~6% del publico es daltonico rojo-verde, asi que un verde puro
-       se confunde con el naranja; el teal se separa por el canal azul. Ambar o
-       dorado quedaban a 15 grados del naranja y no separaban bono de precio.
-       Es el color del herraje y la cinta metrica. 10,17:1 sobre --bg.
-       Funcion: marca lo que se REGALA (bonos, garantia). El naranja marca lo
-       que se PAGA. Dos colores, dos significados, cero decoracion. */
-    --acc3:#37d6c0;
+    /* v5: FUERA EL AZUL (orden de Esteban: "lo unico que no me convence es el
+       color azul"). El 2o acento pasa a ARENA DE PINO, un amarillo-arena muy
+       claro y calido. No es gusto: el teal cuidaba una funcion medida (con 76%
+       de hombres, ~6% del publico no distingue rojo de verde y el 2o acento no
+       podia ser verde), y el reemplazo la sostiene. Medido en CIEDE2000 sobre
+       la simulacion Vienot-Brettel-Mollon del ojo dicromata:
+         arena vs --acc  #ff6a13 : deuteranopia 23,0 · protanopia 31,6
+         arena vs --acc2 #ff9a4d : deuteranopia 16,4 · protanopia 20,2
+       (el JND es ~2,3, o sea se separan de sobra). El AMBAR DORADO que parecia
+       la respuesta obvia NO sirve: #f5c65a cae a 5,5 en deuteranopia contra
+       --acc2 -- para ese ojo el bono y el precio son el mismo color.
+       Contraste sobre --bg: 17,04:1. Funcion intacta: arena = lo que te
+       REGALAN (bonos, garantia); naranja = lo que PAGAS. */
+    --acc3:#fff8b5;
     --steel:#a89383; --deep:#0f0a06;                     /* adorno 6,31 · pozo */
     --radius:16px; --max:1080px;
     --disp:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
@@ -85,9 +91,10 @@
   /* GLOW DEL HERO: el resplandor SI pinta debajo del h1 y del subtitulo, asi
      que su tope no es estetico sino medido: al 16% sobre --bg el peor texto
      de la zona (--acc2) queda en 7,02:1; al 22% cae a 6,30 y rompe AAA.
-     Va al 16% naranja + una segunda capa teal al 10% que le da profundidad
-     sin tocar el contraste (teal 10% deja --acc2 en 7,44). */
-  header{position:relative;padding:74px 0 60px;background:radial-gradient(90% 62% at 50% -4%,rgba(255,106,19,.16),transparent 66%),radial-gradient(70% 50% at 88% 6%,rgba(55,214,192,.10),transparent 62%)}
+     v5: la 2a capa ya no es teal sino ARENA, que es mucho mas clara, asi
+     que baja del 10% al 8%: apilada sobre el naranja al 16% el peor texto
+     del hero (--mut) queda en 8,68:1, y al 10% caia a 8,11. */
+  header{position:relative;padding:74px 0 60px;background:radial-gradient(90% 62% at 50% -4%,rgba(255,106,19,.16),transparent 66%),radial-gradient(70% 50% at 88% 6%,rgba(255,248,181,.08),transparent 62%)}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
   .pill{display:inline-flex;gap:8px;align-items:center;box-shadow:0 0 0 1px rgba(255,106,19,.16),0 6px 22px -14px rgba(255,106,19,.9);font-size:1rem;font-weight:700;color:var(--tx);background:var(--panel2);border:1px solid var(--line);padding:7px 16px;border-radius:999px;margin-bottom:22px;letter-spacing:.01em}
   .pill b{color:var(--acc2)}
@@ -97,7 +104,10 @@
   header p.sub{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--mut);max-width:600px;margin:0 0 30px}
   header p.sub b{color:var(--tx)}
   .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-  .cta-note{color:var(--dim);font-size:1rem;margin-top:14px}
+  /* v5: era --dim. El motor de la v4 media las dos capas del hero como
+     ALTERNATIVAS y no APILADAS: apiladas, --dim sobre el hero daba 6,93 y
+     rompia el piso AAA de 7. Con --mut da 8,68. */
+  .cta-note{color:var(--mut);font-size:1rem;margin-top:14px}
 
   /* MOCKUP: el telefono en el taller. La tira de abajo no es una linea de
      tiempo de video: son las piezas del despiece sobre el tablero. */
@@ -186,10 +196,13 @@
   .acc-body li{padding-left:18px;position:relative}
   .acc-body li::before{content:"\203a";position:absolute;left:0;color:var(--acc2)}
 
-  /* BANDA: foto de taller de fondo (poster de uno de nuestros clips) */
-  .band{position:relative;min-height:360px;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .band img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:grayscale(.35) contrast(1.08)}
-  .band::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--bg) 8%,rgba(26,18,11,.80) 46%,rgba(26,18,11,.32) 100%)}
+  /* BANDA. v5: SE SACO LA FOTO DE FONDO. Era `video/v2.jpg`, un poster
+     VERTICAL de 270x480 px estirado con object-fit:cover sobre una banda
+     apaisada de hasta 1080 px de ancho: ~4x de agrandamiento a lo ancho, y
+     por eso se veia sucia. No hay material propio apaisado (los 9 posters son
+     270x480 y el hero 360x640) y no se baja nada de un banco de imagenes, asi
+     que queda el hueco declarado: la banda es un degradado de tokens. */
+  .band{position:relative;min-height:300px;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(100deg,var(--panel2),var(--panel) 55%,var(--bg))}
   .band .wrap{padding:62px 20px}
   .band h2{font-size:clamp(1.6rem,4.2vw,2.5rem);max-width:620px;margin-bottom:12px}
   .band p{color:var(--mut);max-width:520px;font-size:1.05rem}
@@ -218,7 +231,7 @@
   .stack{display:grid;gap:12px;margin-top:34px;max-width:760px}
   /* BONOS EN TEAL: la separacion de bono vs precio que pedia el target.
      El borde y el glow son --acc3; el precio de abajo sigue naranja. */
-  .st{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid rgba(55,214,192,.34);border-radius:14px;padding:18px 22px;box-shadow:0 0 0 1px rgba(55,214,192,.10),0 12px 30px -22px rgba(55,214,192,.85)}
+  .st{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid rgba(255,248,181,.34);border-radius:14px;padding:18px 22px;box-shadow:0 0 0 1px rgba(255,248,181,.10),0 12px 30px -22px rgba(255,248,181,.85)}
   .st .ic{font-size:1.5rem;flex-shrink:0}
   .st .tt{flex:1}
   .st .tt b{display:block;font-size:1.02rem}
@@ -228,7 +241,7 @@
   .st .vv em{color:var(--acc3);font-style:normal;font-size:1rem;font-weight:800}
 
   /* la GARANTIA tambien es teal: no es lo que pagas, es lo que te protege */
-  .guar{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1.5px solid var(--acc3);border-radius:24px;padding:44px;text-align:center;max-width:760px;margin:0 auto;box-shadow:0 0 70px -26px rgba(55,214,192,.9),0 0 0 1px rgba(55,214,192,.16)}
+  .guar{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1.5px solid var(--acc3);border-radius:24px;padding:44px;text-align:center;max-width:760px;margin:0 auto;box-shadow:0 0 70px -26px rgba(255,248,181,.9),0 0 0 1px rgba(255,248,181,.16)}
   .guar .shield{font-size:3rem;margin-bottom:12px}
 
   .price-card{background:linear-gradient(160deg,var(--panel2),var(--bg));border:1.5px solid var(--acc);border-radius:24px;padding:46px 34px;text-align:center;max-width:540px;margin:38px auto 0;box-shadow:0 0 0 1px rgba(255,106,19,.30),0 0 90px -18px rgba(255,106,19,.95),0 18px 50px -30px rgba(255,106,19,.8)}
@@ -258,7 +271,12 @@
   .aviso b{color:var(--acc2)}
 
   footer{border-top:1px solid var(--line);padding:40px 0 110px;text-align:center;color:var(--mut);font-size:1rem}
-  .disc{color:var(--dim);font-size:.75rem;max-width:760px;margin:16px auto 0;line-height:1.55}
+  /* v5: fuera el <p class="disc"> largo (orden de Esteban: "pongamos 2026
+     Melamina Pro y ya"). Pero la pagina NO queda sin legales: un renglon de
+     enlaces en letra chica, que es otra cosa que el parrafo que mando sacar.
+     Va a 1rem (17px) porque el target es 59,6% de 45 anos o mas. */
+  .legal{margin-top:10px;font-size:1rem;color:var(--mut)}
+  .legal a{text-decoration:underline;text-underline-offset:3px}
 
   .buybar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(26,18,11,.94);backdrop-filter:blur(12px);border-top:1px solid rgba(255,106,19,.45);box-shadow:0 -10px 40px -18px rgba(255,106,19,.9);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
   .buybar .p{font-family:var(--disp);font-weight:900;font-size:1.22rem;letter-spacing:-.02em;line-height:1.1;color:var(--acc);text-shadow:0 0 20px rgba(255,106,19,.7)}
@@ -314,17 +332,16 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-copy">
-        <div class="pill">Biblioteca de planos de melamina &middot; <b>+850 planos</b></div>
         <h1>No dibujes de cero.<br>Abre el plano y <span class="cut">empieza a cortar</span>.</h1>
-        <p class="sub"><b>Mas de 850 planos acotados</b> de melamina, con la medida de cada pieza: los abres y vas directo a cortar y armar. Y de regalo, <b>mas de 460 clases en video</b>, organizadas en secciones por tema, para que aprendas lo que realmente queres aprender a tu tiempo.</p>
+        <p class="sub"><b>Mas de 850 planos</b> con la medida de cada pieza. Los abres y vas directo a cortar. De regalo, <b>mas de 460 clases en video</b>.</p>
         <div class="cta-row"><a href="#comprar" class="btn big" id="btn-hero">Ver la oferta &rarr;</a></div>
-        <div class="cta-note">Pago unico &middot; Acceso inmediato &middot; Es tuyo para siempre</div>
+        <div class="cta-note">Pago unico &middot; Acceso inmediato</div>
       </div>
       <div class="device" aria-hidden="true">
         <div class="phone"><div class="screen">
           <div class="pv">
             <img class="pv-poster" src="../video/hero.jpg" alt="" fetchpriority="high" decoding="async">
-            <span class="tag">Plano acotado</span><span class="rec">+850 planos</span>
+            <span class="tag">Con medidas</span><span class="rec">+850 planos</span>
           </div>
           <div class="tl">
             <div class="tools"><i></i><i></i><i></i><i></i><i></i></div>
@@ -336,19 +353,19 @@ if (PIXEL_ID) {
         </div></div>
       </div>
     </div>
-    <div class="badges"><div class="badge"><div class="n">+850</div><div class="l">planos acotados</div></div>
+    <div class="badges"><div class="badge"><div class="n">+850</div><div class="l">planos con medidas</div></div>
       <div class="badge"><div class="n">1.175</div><div class="l">paginas de planos</div></div>
       <div class="badge"><div class="n">+460</div><div class="l">clases de regalo</div></div>
-      <div class="badge"><div class="n">39</div><div class="l">accesos en total</div></div></div>
+      <div class="badge"><div class="n">39</div><div class="l">descargas</div></div></div>
   </div>
 </header>
 
 <!-- GALERIA DE VIDEO (mecanica del molde: thumbnail + iframe nocookie detras) -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">Que hay adentro de la biblioteca</div>
+    <div class="eyebrow">Que hay adentro</div>
     <h2 class="title">Planos de lo que la gente pide todos los dias</h2>
-    <p class="lead">Closets, cocinas, roperos, escritorios, centros de TV, muebles infantiles. Cada plano con su despiece y sus medidas. Asi se ven armados:</p>
+    <p class="lead">Closets, cocinas, roperos, escritorios, centros de TV. Asi se ven armados:</p>
     <div class="gallery">
       <div class="fx g1" data-v="v1.mp4"><img class="fx-th" src="../video/v1.jpg" alt="" loading="lazy"><span class="ply"></span><span>Corte y<br>armado</span></div>
       <div class="fx g2" data-v="v2.mp4"><img class="fx-th" src="../video/v2.jpg" alt="" loading="lazy"><span class="ply"></span><span>Mueble<br>terminado</span></div>
@@ -359,7 +376,53 @@ if (PIXEL_ID) {
       <div class="fx g7" data-v="v7.mp4"><img class="fx-th" src="../video/v7.jpg" alt="" loading="lazy"><span class="ply"></span><span>Montaje<br>e instalacion</span></div>
       <div class="fx g8" data-v="v8.mp4"><img class="fx-th" src="../video/v8.jpg" alt="" loading="lazy"><span class="ply"></span><span>Estructura<br>y despiece</span></div>
     </div>
-    <p class="fx-note">Lo que ves moviendose son <b>los mismos clips que usamos en nuestros anuncios</b>, puestos aqui para que veas el tipo de trabajo del que hablamos. No son el contenido de la entrega: los planos y el curso de regalo estan listados mas abajo, uno por uno, con su conteo.</p>
+  </div>
+</section>
+
+<!-- PRECIO / CTA -->
+<section id="comprar">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Empieza hoy</div>
+    <h2 class="title">Arma tu pack, un solo pago</h2>
+    <div class="price-card">
+      <div style="color:var(--mut);font-size:.9rem">Precio de hoy</div>
+      <div class="price-now" id="precio-grande">&nbsp;</div>
+      <div style="color:var(--mut);margin-top:2px">pago unico &middot; acceso de por vida</div>
+      <div style="color:var(--dim);font-size:.85rem;margin-top:10px">Pagas en la moneda de tu pais.</div>
+      <ul class="price-list"><li><b>Mas de 850 planos</b> con la medida de cada pieza</li>
+<li>Closets, cocinas, roperos, escritorios, centros de TV</li>
+<li><b>Mega Pack</b>: 5 carpetas mas</li>
+<li><b>De regalo</b>: mas de 460 clases en video</li>
+<li>39 descargas, tuyas para siempre</li>
+<li>Garantia de 3 dias sin preguntas</li></ul>
+      <div class="bumps">
+        <label class="bump" id="bump-fx">
+          <input type="checkbox"><span class="bx"></span>
+          <span class="bt">&#128295; <b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs, 445 planos con medidas, 1344 paginas en acero y madera.</small></span>
+          <span class="bp" id="bp-fx">&nbsp;</span>
+        </label>
+        <label class="bump" id="bump-cin">
+          <input type="checkbox"><span class="bx"></span>
+          <span class="bt">&#128187; <b>Editables para cortar</b><small>60 archivos para modificar: SketchUp, AutoCAD, DXF y Excel.</small></span>
+          <span class="bp" id="bp-cin">&nbsp;</span>
+        </label>
+        <div class="bump-nota" id="bump-nota">&nbsp;</div>
+      </div>
+      <a href="#comprar" class="btn big" id="btn-pago" aria-disabled="true">Checkout pendiente</a>
+      <div class="cta-note">Pago seguro &middot; Acceso inmediato al confirmar</div>
+    </div>
+    <div class="aviso" id="aviso-checkout">&#9888;&#65039; <b>Pagina en preparacion:</b> el boton se activa cuando esten los links de pago. Por ahora no cobra nada.</div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section style="background:var(--panel)">
+  <div class="wrap">
+    <div class="guar">
+      <div class="shield">&#128737;&#65039;</div>
+      <h2 class="title" style="margin-bottom:10px">Garantia de 3 dias</h2>
+      <p class="lead" style="margin:0 auto">Si en 3 dias no es lo que esperabas, se devuelve el <b>100%</b>. Sin preguntas.</p>
+    </div>
   </div>
 </section>
 
@@ -368,7 +431,7 @@ if (PIXEL_ID) {
   <div class="wrap" style="text-align:center">
     <div class="eyebrow">Cuanto cuesta por separado</div>
     <h2 class="title">Las mismas piezas, sumadas una por una</h2>
-    <p class="lead" style="margin:0 auto 4px">Estos no son precios inventados para tachar: son <b>los precios reales</b> a los que se vende cada pieza por su lado, aqui mismo, mas abajo.</p>
+    <p class="lead" style="margin:0 auto 4px">Son <b>los precios reales</b> de cada pieza por separado.</p>
     <div class="anchor">
       <div class="row"><span>La biblioteca completa de planos</span><b id="anc-base">&nbsp;</b></div>
       <div class="row"><span>Pack MUEBLE INDUSTRIAL en metal (4 packs &middot; 445 planos)</span><b id="anc-fx">&nbsp;</b></div>
@@ -376,7 +439,7 @@ if (PIXEL_ID) {
       <div class="row sum"><span>Comprando cada pieza por separado</span><b id="anc-suma">&nbsp;</b></div>
       <div class="row hoy"><span>Todo junto, hoy</span><b id="anc-hoy">&nbsp;</b></div>
     </div>
-    <p class="anchor-note">La diferencia es <b id="anc-ahorro">&nbsp;</b>. Sin cupos, sin reloj y sin letra chica: es simplemente mas barato en un solo pago que en tres.</p>
+    <p class="anchor-note">Te ahorras <b id="anc-ahorro">&nbsp;</b>. Sin cupos y sin reloj.</p>
     <div style="margin-top:28px"><a href="#comprar" class="btn big">Quiero todo junto &rarr;</a></div>
   </div>
 </section>
@@ -386,14 +449,14 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="eyebrow">Que vas a tener</div>
     <h2 class="title">Contado, no prometido</h2>
-    <p class="lead">Cada numero de esta pagina salio de <b>contar la entrega real</b>, archivo por archivo. Ninguno esta redondeado hacia arriba.</p>
+    <p class="lead">Ningun numero esta redondeado hacia arriba.</p>
     <div class="grid">
-      <div class="card"><div class="ic">&#128208;</div><h3>Mas de 850 planos acotados</h3><p>Planos de melamina con la medida de cada pieza. Los abres y vas directo al tablero, sin dibujar de cero.</p></div>
-      <div class="card"><div class="ic">&#128196;</div><h3>1.175 paginas de planos</h3><p>Armarios, cocinas, roperos, escritorios, centros de TV, muebles infantiles y mas. Listos para imprimir o para abrir en el celular.</p></div>
-      <div class="card"><div class="ic">&#127909;</div><h3>De regalo: +460 clases en video</h3><p>Organizadas en secciones por tema, para que aprendas lo que realmente queres aprender a tu tiempo: medir, despiezar, optimizar el corte, cantear, armar y cobrar.</p></div>
-      <div class="card"><div class="ic">&#128230;</div><h3>5 carpetas del Mega Pack</h3><p>Catalogo en melamina, guia teorica, SketchUp Pro, ejemplos de armado y habitos de taller.</p></div>
-      <div class="card"><div class="ic">&#128295;</div><h3>60 archivos editables</h3><p>14 SketchUp, 11 AutoCAD, 33 DXF y 2 Excel de despiece. Cambias una medida y el corte se recalcula.</p></div>
-      <div class="card"><div class="ic">&#128273;</div><h3>39 accesos en total</h3><p>Todo queda en tu zona de descarga. Lo bajas a tu disco y es tuyo para siempre.</p></div>
+      <div class="card"><div class="ic">&#128208;</div><h3>Mas de 850 planos</h3><p>Con la medida de cada pieza. Los abres y vas directo al tablero.</p></div>
+      <div class="card"><div class="ic">&#128196;</div><h3>1.175 paginas de planos</h3><p>Armarios, cocinas, roperos, escritorios y centros de TV. Listos para el celular.</p></div>
+      <div class="card"><div class="ic">&#127909;</div><h3>De regalo: +460 clases en video</h3><p>Por tema y a tu ritmo: medir, despiezar, cortar, cantear, armar y cobrar.</p></div>
+      <div class="card"><div class="ic">&#128230;</div><h3>5 carpetas del Mega Pack</h3><p>Catalogo, guia teorica, SketchUp Pro y ejemplos de armado.</p></div>
+      <div class="card"><div class="ic">&#128295;</div><h3>60 archivos editables</h3><p>14 SketchUp, 11 AutoCAD, 33 DXF y 2 Excel. Cambias una medida y el corte se recalcula.</p></div>
+      <div class="card"><div class="ic">&#128273;</div><h3>39 descargas</h3><p>Todo queda en tu zona de descarga, y es tuyo para siempre.</p></div>
     </div>
     <div style="margin-top:34px"><a href="#comprar" class="btn">Lo quiero completo &rarr;</a></div>
   </div>
@@ -401,11 +464,10 @@ if (PIXEL_ID) {
 
 <!-- BANDA -->
 <section class="band" style="padding:0">
-  <img class="bg" src="../video/v2.jpg" alt="" loading="lazy">
   <div class="wrap">
     <div class="eyebrow">De la medida al mueble</div>
-    <h2>Planos que ya estan acotados</h2>
-    <p>Mas de 850 planos con la medida de cada pieza. Abres, optimizas el corte y vas al tablero. Sin dibujar de cero.</p>
+    <h2>Ya vienen con la medida de cada pieza</h2>
+    <p>Abres, optimizas el corte y vas al tablero. Sin dibujar de cero.</p>
   </div>
 </section>
 
@@ -414,11 +476,11 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="eyebrow">Como funciona</div>
     <h2 class="title">Del pago al primer plano abierto, hoy</h2>
-    <p class="lead">No hay envio, no hay espera y no hay cupo de inscripcion. Es descarga directa.</p>
+    <p class="lead">Sin envio y sin espera. Descarga directa.</p>
     <div class="steps">
-      <div class="step"><div class="num">1</div><h3>Pagas una vez</h3><p>Un solo pago, en la moneda de tu pais. No es suscripcion y no se renueva.</p></div>
-      <div class="step"><div class="num">2</div><h3>Se abre tu zona de descarga</h3><p>Al confirmar el pago llegas a la pagina con los 39 accesos, ordenados por bloque.</p></div>
-      <div class="step"><div class="num">3</div><h3>Abres y cortas</h3><p>Bajas el plano que necesitas hoy y empiezas. El resto queda ahi para cuando lo pidas.</p></div>
+      <div class="step"><div class="num">1</div><h3>Pagas una vez</h3><p>Un solo pago. No es suscripcion.</p></div>
+      <div class="step"><div class="num">2</div><h3>Se abre tu zona de descarga</h3><p>Al confirmar el pago llegas a las 39 descargas, ordenadas por bloque.</p></div>
+      <div class="step"><div class="num">3</div><h3>Abres y cortas</h3><p>Bajas el plano que necesitas hoy. El resto queda ahi.</p></div>
     </div>
     <div style="margin-top:34px"><a href="#comprar" class="btn">Empezar ahora &rarr;</a></div>
   </div>
@@ -430,10 +492,10 @@ if (PIXEL_ID) {
     <div class="eyebrow">Hablemos claro</div>
     <h2 class="title">Lo que estas pensando ahora mismo</h2>
     <div class="obj">
-      <div class="ob"><h3>Yo no se usar AutoCAD</h3><p>No hace falta. Los mas de 850 planos se abren con el visor del celular: ya vienen acotados, solo lees la medida. Los 60 editables son un extra para quien quiera modificarlos, no el camino obligatorio.</p></div>
-      <div class="ob"><h3>No tengo un taller grande</h3><p>El corte del tablero lo hace el deposito donde compras la melamina, con tu lista de despiece. En casa necesitas atornillador, plancha para el canto y espacio para armar.</p></div>
-      <div class="ob"><h3>Soy principiante total</h3><p>El bloque 1 arranca en el tablero crudo: que es la melamina, que espesores hay y como se mide. No se asume nada previo.</p></div>
-      <div class="ob"><h3>Ya vi tutoriales gratis en YouTube</h3><p>Y son buenos. Lo que no tienen son los mas de 850 planos acotados. Eso es lo que estas comprando: no informacion suelta, sino el plano listo con la medida de cada pieza.</p></div>
+      <div class="ob"><h3>Yo no se usar AutoCAD</h3><p>No hace falta. Los planos se abren con el visor del celular y ya traen la medida puesta. Los 60 editables son un extra.</p></div>
+      <div class="ob"><h3>No tengo un taller grande</h3><p>El corte lo hace el deposito donde compras la melamina. En casa: atornillador, plancha para el canto y espacio.</p></div>
+      <div class="ob"><h3>Soy principiante total</h3><p>El bloque 1 arranca en el tablero crudo: que es la melamina y como se mide.</p></div>
+      <div class="ob"><h3>Ya vi tutoriales gratis en YouTube</h3><p>Y son buenos. Lo que no tienen es el plano listo con la medida de cada pieza.</p></div>
     </div>
     <div style="margin-top:34px"><a href="#comprar" class="btn">Resuelto, lo quiero &rarr;</a></div>
   </div>
@@ -444,22 +506,22 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="eyebrow">Contenido completo</div>
     <h2 class="title">Bloque por bloque, sin relleno</h2>
-    <p class="lead">Cada numero de aqui fue <b>contado archivo por archivo</b> sobre la entrega real. Lo que ves es lo que hay.</p>
+    <p class="lead">Contado archivo por archivo.</p>
     <div class="acc">
-      <details open>
+      <details>
         <summary><span>1 &middot; Planos y catalogos, archivo por archivo</span><span class="meta">18 archivos &middot; 522 planos</span></summary>
         <div class="acc-body">
-          <ul><li>100 Planos de Melamina (Despieces) &middot; <b>86 planos acotados</b></li>
-<li>Catalogo de Armarios &middot; <b>47 planos acotados</b></li>
-<li>Muebles de Melamina &middot; <b>93 planos acotados</b></li>
-<li>Nuevo Libro de Cocina Avanzado &middot; <b>51 planos acotados</b></li>
-<li>Planos Drywall &middot; <b>51 planos acotados</b></li>
-<li>Cocinas &middot; <b>31 planos acotados</b></li>
-<li>Centro de TV y Entretenimiento &middot; <b>31 planos acotados</b></li>
-<li>Escritorios &middot; <b>31 planos acotados</b></li>
-<li>Roperos &middot; <b>31 planos acotados</b></li>
-<li>Comodas y Libreros &middot; <b>29 planos acotados</b></li>
-<li>Variados &middot; <b>16 planos acotados</b></li>
+          <ul><li>100 Planos de Melamina (Despieces) &middot; <b>86 planos con medidas</b></li>
+<li>Catalogo de Armarios &middot; <b>47 planos con medidas</b></li>
+<li>Muebles de Melamina &middot; <b>93 planos con medidas</b></li>
+<li>Nuevo Libro de Cocina Avanzado &middot; <b>51 planos con medidas</b></li>
+<li>Planos Drywall &middot; <b>51 planos con medidas</b></li>
+<li>Cocinas &middot; <b>31 planos con medidas</b></li>
+<li>Centro de TV y Entretenimiento &middot; <b>31 planos con medidas</b></li>
+<li>Escritorios &middot; <b>31 planos con medidas</b></li>
+<li>Roperos &middot; <b>31 planos con medidas</b></li>
+<li>Comodas y Libreros &middot; <b>29 planos con medidas</b></li>
+<li>Variados &middot; <b>16 planos con medidas</b></li>
 <li>Melamina y Planos (Conozcamos mas) &middot; <b>11 planos</b> + teoria</li>
 <li>Libro de Cocinas &middot; <b>6 planos</b> + guia de cocinas</li>
 <li>Muebles de Cocina &middot; <b>5 planos</b> + guia</li>
@@ -467,16 +529,14 @@ if (PIXEL_ID) {
 <li>Manual Melamina &middot; <b>manual completo</b>, 298 paginas</li>
 <li>Muebles Infantiles &middot; <b>guia</b> de 40 paginas</li>
 <li>Bono: Mueble Industrial (Metal + Madera) &middot; <b>285 planos</b> de acero y madera</li></ul>
-          <p style="margin-top:12px">Vienen en PDF listos para imprimir o para abrir en el visor del celular. Los de despiece traen las medidas de cada pieza ya acotadas.</p>
         </div>
       </details>
       <details>
         <summary><span>2 &middot; Packs de planos de melamina</span><span class="meta">3 packs &middot; 330 planos</span></summary>
         <div class="acc-body">
-          <ul><li>Pack Melamina &middot; <b>157 planos acotados</b></li>
-<li>Planos para muebles de melamina &middot; <b>87 planos acotados</b></li>
-<li>Libro de despiece &middot; <b>86 planos acotados</b></li></ul>
-          <p style="margin-top:12px">Una lamina por mueble, con el despiece al lado. Contados pagina por pagina, sin repetidos.</p>
+          <ul><li>Pack Melamina &middot; <b>157 planos con medidas</b></li>
+<li>Planos para muebles de melamina &middot; <b>87 planos con medidas</b></li>
+<li>Libro de despiece &middot; <b>86 planos con medidas</b></li></ul>
         </div>
       </details>
       <details>
@@ -487,17 +547,15 @@ if (PIXEL_ID) {
 <li>SketchUp Pro</li>
 <li>Ejemplos y Tips para tus Armados</li>
 <li>Bono: Habitos Pro</li></ul>
-          <p style="margin-top:12px">Estas 5 carpetas <b>no estan contadas</b> en los 850: suman planos encima, no debajo.</p>
         </div>
       </details>
       <details>
-        <summary><span>4 &middot; Acceso extra a libros PRO</span><span class="meta">1 acceso</span></summary>
-        <div class="acc-body"><li>Acceso 2: Libros Muebles Industriales y mas</li></div>
+        <summary><span>4 &middot; Libros PRO</span><span class="meta">1 descarga</span></summary>
+        <div class="acc-body"><li>Libros de Muebles Industriales y mas</li></div>
       </details>
       <details>
         <summary><span>5 &middot; De regalo: el curso completo en video</span><span class="meta">+460 clases</span></summary>
         <div class="acc-body">
-          <p style="margin-bottom:12px"><b>Mas de 460 clases en video, organizadas en secciones por tema</b>, para que aprendas lo que realmente queres aprender a tu tiempo. No hace falta verlo entero ni en orden: abris la seccion que necesitas hoy.</p>
           <ul><li>Videos Melamina PRO &middot; <b>30 archivos &middot; 20 en video</b></li>
 <li>Manuales sobre Melamina &middot; <b>19 archivos</b></li>
 <li>Clases Adicionales &middot; <b>14 videos</b></li>
@@ -513,7 +571,6 @@ if (PIXEL_ID) {
 <li>Resina Epoxica &middot; <b>24 videos</b></li>
 <li>Bono: Descarga SketchUp &middot; <b>2 archivos &middot; 1 en video</b></li>
 <li>Pack Mantenimiento del Hogar 360 &middot; <b>351 videos</b></li></ul>
-          <p style="margin-top:12px">563 archivos en total. Es un regalo que suma: lo que compras son los planos.</p>
         </div>
       </details></div>
   </div>
@@ -524,61 +581,14 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="eyebrow">Lo que se apila encima</div>
     <h2 class="title">Todo lo que entra, con su precio suelto</h2>
-    <p class="lead">Cada uno se vende por su lado al precio que ves tachado. Entrando por aqui, entran juntos.</p>
+    <p class="lead">Cada uno se vende por su lado. Aqui entran juntos.</p>
     <div class="stack">
-      <div class="st"><div class="ic">&#128230;</div><div class="tt"><b>Biblioteca completa de planos</b><small>Mas de 850 planos acotados en 1.175 paginas, mas el Mega Pack &mdash; y de regalo el curso entero: mas de 460 clases en video</small></div><div class="vv"><s id="st-1">&nbsp;</s><em>incluido</em></div></div>
-      <div class="st"><div class="ic">&#128295;</div><div class="tt"><b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs, 445 planos acotados, 1344 paginas de proyectos en acero y madera</small></div><div class="vv"><s id="st-2">&nbsp;</s><em>marcalo abajo</em></div></div>
+      <div class="st"><div class="ic">&#128230;</div><div class="tt"><b>Biblioteca completa de planos</b><small>+850 planos en 1.175 paginas, mas el Mega Pack y las +460 clases de regalo</small></div><div class="vv"><s id="st-1">&nbsp;</s><em>incluido</em></div></div>
+      <div class="st"><div class="ic">&#128295;</div><div class="tt"><b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs, 445 planos, 1344 paginas en acero y madera</small></div><div class="vv"><s id="st-2">&nbsp;</s><em>marcalo abajo</em></div></div>
       <div class="st"><div class="ic">&#128187;</div><div class="tt"><b>Editables para cortar</b><small>60 archivos: 14 SketchUp, 11 AutoCAD, 33 DXF, 2 Excel de despiece</small></div><div class="vv"><s id="st-3">&nbsp;</s><em>marcalo abajo</em></div></div>
       <div class="st"><div class="ic">&#128218;</div><div class="tt"><b>Mega Pack de planos</b><small>5 carpetas: catalogo, guia teorica, SketchUp Pro, ejemplos de armado</small></div><div class="vv"><em>incluido</em></div></div>
     </div>
     <div style="margin-top:34px"><a href="#comprar" class="btn big">Armar mi pack &rarr;</a></div>
-  </div>
-</section>
-
-<!-- PRECIO / CTA -->
-<section id="comprar">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow">Empieza hoy</div>
-    <h2 class="title">Arma tu pack, un solo pago</h2>
-    <div class="price-card">
-      <div style="color:var(--mut);font-size:.9rem">Precio de hoy</div>
-      <div class="price-now" id="precio-grande">&nbsp;</div>
-      <div style="color:var(--mut);margin-top:2px">pago unico &middot; acceso de por vida</div>
-      <div style="color:var(--dim);font-size:.85rem;margin-top:10px">Pagas en la moneda de tu pais, al cambio del dia.</div>
-      <ul class="price-list"><li><b>Mas de 850 planos acotados</b> de melamina, con la medida de cada pieza</li>
-<li>Del closet a la cocina integral: armarios, roperos, escritorios, centros de TV, muebles infantiles</li>
-<li><b>Mega Pack</b>: 5 carpetas mas de planos, guias y plantillas</li>
-<li><b>De regalo</b>: mas de 460 clases en video, organizadas en secciones por tema</li>
-<li>39 accesos en total, tuyos para siempre</li>
-<li>Garantia de 3 dias sin preguntas</li></ul>
-      <div class="bumps">
-        <label class="bump" id="bump-fx">
-          <input type="checkbox"><span class="bx"></span>
-          <span class="bt">&#128295; <b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs con 445 planos acotados en 1344 paginas: acero y madera, muebles industriales.</small></span>
-          <span class="bp" id="bp-fx">&nbsp;</span>
-        </label>
-        <label class="bump" id="bump-cin">
-          <input type="checkbox"><span class="bx"></span>
-          <span class="bt">&#128187; <b>Editables para cortar</b><small>60 archivos que se abren y se modifican: 14 SketchUp, 11 AutoCAD, 33 DXF y 2 Excel de despiece.</small></span>
-          <span class="bp" id="bp-cin">&nbsp;</span>
-        </label>
-        <div class="bump-nota" id="bump-nota">&nbsp;</div>
-      </div>
-      <a href="#comprar" class="btn big" id="btn-pago" aria-disabled="true">Checkout pendiente</a>
-      <div class="cta-note">Pago seguro &middot; Acceso inmediato al confirmar</div>
-    </div>
-    <div class="aviso" id="aviso-checkout">&#9888;&#65039; <b>Pagina en preparacion:</b> el boton de pago se activa cuando Esteban cargue los links de checkout de esta oferta. Hasta entonces no cobra nada.</div>
-  </div>
-</section>
-
-<!-- GARANTIA -->
-<section style="background:var(--panel)">
-  <div class="wrap">
-    <div class="guar">
-      <div class="shield">&#128737;&#65039;</div>
-      <h2 class="title" style="margin-bottom:10px">Garantia de 3 dias</h2>
-      <p class="lead" style="margin:0 auto">Si en los primeros 3 dias el material no es lo que esperabas, se devuelve el <b>100%</b> de tu dinero. Sin preguntas y sin letra chica. El riesgo es nuestro, no tuyo.</p>
-    </div>
   </div>
 </section>
 
@@ -588,11 +598,11 @@ if (PIXEL_ID) {
     <div class="eyebrow">Preguntas frecuentes</div>
     <h2 class="title">Lo que todos preguntan</h2>
     <div class="acc">
-      <details><summary><span>&iquest;Como recibo el material?</span></summary><div class="acc-body">Apenas se confirma el pago llegas a tu zona de descarga privada con los 39 accesos ordenados por bloque, los planos primero. Descargas lo que quieras a tu disco y es tuyo para siempre.</div></details>
+      <details><summary><span>&iquest;Como recibo el material?</span></summary><div class="acc-body">Apenas se confirma el pago llegas a tu zona de descarga privada con las 39 descargas ordenadas por bloque, los planos primero. Descargas lo que quieras a tu disco y es tuyo para siempre.</div></details>
       <details><summary><span>&iquest;Necesito experiencia previa en carpinteria?</span></summary><div class="acc-body">No. El primer bloque arranca en el tablero crudo: que es la melamina, que espesores existen y como se mide. De ahi sube hasta el mueble instalado.</div></details>
       <details><summary><span>&iquest;Necesito maquinas caras?</span></summary><div class="acc-body">No para empezar. El corte del tablero lo hace el deposito donde compras la melamina con tu lista de despiece. Para armar necesitas atornillador, una plancha para el tapacanto y herramienta de mano.</div></details>
-      <details><summary><span>&iquest;Los planos traen las medidas?</span></summary><div class="acc-body">Si. Son planos <b>acotados</b>: cada pieza con su medida, lista para pasar al despiece. Vienen en PDF listos para imprimir o para abrir en el celular, y hay 3 archivos mas de despiece especifico.</div></details>
-      <details><summary><span>&iquest;Cuantos planos son exactamente?</span></summary><div class="acc-body"><b>852 planos acotados</b>, contados uno por uno sobre la entrega real: se midio pagina por pagina cuales son lamina con cotas y cuales no. El numero que ves arriba esta <b>redondeado hacia abajo</b>, nunca hacia arriba. Y no incluye el Mega Pack ni las carpetas de planos del curso, que suman mas.</div></details>
+      <details><summary><span>&iquest;Los planos traen las medidas?</span></summary><div class="acc-body">Si. Cada pieza va con su medida puesta en el plano (en el oficio se dice <b>acotado</b>), lista para pasar al despiece. Vienen en PDF listos para imprimir o para abrir en el celular, y hay 3 archivos mas de despiece especifico.</div></details>
+      <details><summary><span>&iquest;Cuantos planos son exactamente?</span></summary><div class="acc-body"><b>852 planos con medidas</b>, contados uno por uno sobre la entrega real: se midio pagina por pagina cuales son lamina con cotas y cuales no. El numero que ves arriba esta <b>redondeado hacia abajo</b>, nunca hacia arriba. Y no incluye el Mega Pack ni las carpetas de planos del curso, que suman mas.</div></details>
       <details><summary><span>&iquest;Es un pago mensual?</span></summary><div class="acc-body">No. Es un pago unico. No se renueva, no es suscripcion y el acceso no vence.</div></details>
       <details><summary><span>&iquest;Y si no me sirve?</span></summary><div class="acc-body">Tienes 3 dias de garantia. Si el material no es lo que esperabas escribes y se devuelve el 100%, sin preguntas y sin letra chica.</div></details></div>
     <div style="margin-top:34px;text-align:center"><a href="#comprar" class="btn big">Quiero mi acceso &rarr;</a></div>
@@ -602,8 +612,8 @@ if (PIXEL_ID) {
 <footer>
   <div class="wrap">
     <div class="logo" style="justify-content:center;margin-bottom:12px"><span class="mark"><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='#0a0603' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='7.4'/><path d='M12 4.6v3M12 16.4v3M4.6 12h3M16.4 12h3M6.8 6.8l2.1 2.1M15.1 15.1l2.1 2.1M17.2 6.8l-2.1 2.1M8.9 15.1l-2.1 2.1'/></svg></span>MELAMINA<span class="sub">PRO</span></div>
-    <p>&copy; 2026 &middot; Material educativo de carpinteria. Entrega digital inmediata.</p>
-    <p class="disc">Los videos que se ven en esta pagina son los mismos clips que usamos en nuestros anuncios, alojados en esta pagina y mostrados como ejemplo del oficio. No forman parte del material que se entrega. El material del curso y los planos son la entrega digital descrita arriba. Las marcas de herramienta, software o tableros mencionadas pertenecen a sus duenos; este es material educativo independiente.</p>
+    <p>&copy; 2026 &middot; Melamina Pro</p>
+    <p class="legal"><a href="/terminos/">Terminos</a> &middot; <a href="/reembolsos/">Reembolsos</a> &middot; <a href="/privacidad/">Privacidad</a> &middot; <a href="/contacto/">Contacto</a></p>
   </div>
 </footer>
 
