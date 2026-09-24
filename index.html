@@ -91,7 +91,7 @@
      width/height puestos: el layout no salta mientras carga (4127 B). */
   .logo .mark{width:42px;height:42px;display:block;flex-shrink:0;object-fit:contain}
   .logo .mark.big{width:66px;height:66px}
-  .logo .sub{font-weight:700;font-size:.78rem;letter-spacing:.14em;color:var(--acc2);text-transform:uppercase;margin-left:2px;align-self:flex-end;padding-bottom:2px}
+  .logo .sub{font-weight:700;font-size:.78rem;letter-spacing:.14em;color:var(--acc2);text-transform:uppercase}
 
   nav{position:sticky;top:0;z-index:50;background:rgba(26,18,11,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -219,16 +219,6 @@
   .band p{color:var(--mut);max-width:520px;font-size:1.05rem}
 
   /* ANCLAJE de precio: la suma de las piezas contra el precio de hoy */
-  .anchor{max-width:640px;margin:34px auto 0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-  .anchor .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 22px;border-bottom:1px solid var(--line);font-size:1.05rem}
-  .anchor .row span{color:var(--mut)}
-  .anchor .row b{font-family:var(--disp);font-weight:900;white-space:nowrap}
-  .anchor .row.sum{background:var(--panel2)}
-  .anchor .row.sum b{color:var(--mut);text-decoration:line-through}
-  .anchor .row.hoy{border-bottom:none;padding:20px 22px}
-  .anchor .row.hoy span{color:var(--tx);font-weight:800}
-  .anchor .row.hoy b{color:var(--acc);font-size:1.5rem;text-shadow:0 0 24px rgba(255,106,19,.7)}
-  .anchor-note{color:var(--dim);font-size:1rem;text-align:center;margin-top:12px;max-width:640px;margin-left:auto;margin-right:auto}
 
   /* OBJECIONES */
   .obj{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:38px}
@@ -239,17 +229,8 @@
   .ob p{color:var(--mut);font-size:1.05rem}
 
   /* BONOS APILADOS */
-  .stack{display:grid;gap:12px;margin-top:34px;max-width:760px}
   /* BONOS EN TEAL: la separacion de bono vs precio que pedia el target.
      El borde y el glow son --acc3; el precio de abajo sigue naranja. */
-  .st{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid rgba(255,248,181,.34);border-radius:14px;padding:18px 22px;box-shadow:0 0 0 1px rgba(255,248,181,.10),0 12px 30px -22px rgba(255,248,181,.85)}
-  .st .ic{font-size:1.5rem;flex-shrink:0}
-  .st .tt{flex:1}
-  .st .tt b{display:block;font-size:1.02rem}
-  .st .tt small{color:var(--mut);font-size:1rem}
-  .st .vv{font-family:var(--disp);font-weight:900;white-space:nowrap;text-align:right}
-  .st .vv s{color:var(--dim);display:block;font-size:1rem;font-weight:700}
-  .st .vv em{color:var(--acc3);font-style:normal;font-size:1rem;font-weight:800}
 
   /* la GARANTIA tambien es teal: no es lo que pagas, es lo que te protege */
   .guar{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1.5px solid var(--acc3);border-radius:24px;padding:44px;text-align:center;max-width:760px;margin:0 auto;box-shadow:0 0 70px -26px rgba(255,248,181,.9),0 0 0 1px rgba(255,248,181,.16)}
@@ -320,11 +301,86 @@
        quedan solo en escritorio; display:none => el observer nunca los inyecta. */
     .fx.g7,.fx.g8{display:none}
     .band .wrap{padding:48px 20px}
-    .st{flex-wrap:wrap}
     .bump{flex-wrap:wrap;row-gap:2px}
     .bump .bp{order:3;flex-basis:100%;padding-left:34px}
     .buybar{display:flex}
   }
+
+  /* ══════════════ v7 ══════════════════════════════════════════════════════
+     1) LOCKUP. El "Pro" se veia caido porque era un INLINE dentro del mismo
+     item anonimo que "MELAMINA": se alineaba por LINEA BASE, y con la base
+     compartida su centro de mayusculas cae (cap1-cap2)/2 = 2,47 px mas abajo.
+     Ahora el texto vive en .wm, que es un flex propio con line-height:1, asi
+     que "MELAMINA" y "PRO" se centran por CAJA. Medido sobre las metricas
+     reales de la fuente (hhea de Inter Tight: A-D-cap = 0,000000), el desvio
+     entre los dos pasa a 0,000 px; con Roboto (el PRIMER render en Android,
+     display=swap) queda en 0,093 px.
+     2) El PNG del logo no esta centrado en su caja: su trazo solido (alpha>=200)
+     va de y=30 a y=101 en 128 px, o sea 2 px BAJO el centro -- 0,66 px a 42 px
+     y 1,03 px a 66 px, que por si solo ya rompia el criterio de 1 px en el
+     footer. El translateY va en % para que corrija los dos tamanos con un
+     solo numero: 2/128 = 1,5625%. */
+  .logo .wm{display:flex;align-items:center;gap:2px;line-height:1}
+  .logo .mark{transform:translateY(-1.5625%)}
+
+  /* ANCLA + BADGE + RELOJ del bloque de compra */
+  .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
+  /* el tachado NO es un gris ilegible: --dim sobre --panel2 da 8,41:1 (el piso
+     AAA de texto normal es 7). El error clasico de esta pieza es justo ese. */
+  .ancla s{color:var(--dim);font-family:var(--disp);font-weight:800;font-size:1.35rem;text-decoration-thickness:2px}
+  .ancla .off{background:var(--acc);color:var(--ink);font-family:var(--disp);font-weight:900;font-size:.9rem;letter-spacing:-.01em;padding:5px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 0 22px -6px rgba(255,106,19,.9)}
+  /* RELOJ: cuenta hasta la MEDIANOCHE LOCAL del visitante, no 15 minutos por
+     sesion. El molde de CapCut reiniciaba en cada visita y por eso se retiro.
+     Aca no hay marcador que guardar: la medianoche local ES el marcador, la
+     misma en cada recarga, asi que recargar no lo reinicia ni con el storage
+     bloqueado. */
+  .reloj{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;background:var(--panel2);border:1px dashed var(--acc);border-radius:12px;padding:10px 14px;margin:14px auto 18px;max-width:420px}
+  .reloj .rl{color:var(--mut);font-size:.9rem}
+  .reloj b{font-family:var(--disp);font-weight:900;font-size:1.2rem;color:var(--tx);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  /* el bump ahora lleva su valor suelto tachado encima del precio de hoy */
+  .bump .bp{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15}
+  .bump .bp s{color:var(--dim);font-size:.9rem;font-weight:700}
+
+  /* ══ TABLA DE VALOR (v7): UN solo bloque donde antes habia CUATRO
+     ("Arma tu pack" + "Contado, no prometido" + #anclaje + "Todo lo que entra
+     con su precio suelto"). La tabla con las casillas ES el arma-mi-pack y sus
+     numeros SON el contado-no-prometido. */
+  .vtab{max-width:720px;margin:30px auto 0;background:var(--panel);border:1px solid var(--steel);border-radius:var(--radius);overflow:hidden}
+  /* el separador pasa de --line (2,28:1) a --steel (6,31:1): la linea que
+     separa filas de precio es informacion, y 1.4.11 le pide 3:1. */
+  .vr{display:flex;align-items:center;gap:14px;padding:15px 20px;border-bottom:1px solid var(--steel)}
+  .vr:last-child{border-bottom:none}
+  .vr .vt{flex:1 1 auto;min-width:0}
+  .vr .vt b{display:block;font-size:1.02rem;overflow-wrap:anywhere}
+  .vr .vt small{display:block;color:var(--mut);font-size:1rem;margin-top:3px}
+  .vr .vp{flex:0 0 auto;text-align:right;font-family:var(--disp);white-space:nowrap}
+  .vr .vp b{font-weight:900;font-size:1.05rem;color:var(--tx)}
+  .vr .vp em{display:block;font-style:normal;font-size:.9rem;font-weight:800;color:var(--acc3);font-family:var(--sans)}
+  .vr.vb{cursor:pointer;transition:background .15s,border-color .15s}
+  .vr.vb:hover{background:var(--panel2)}
+  .vr.vb input{display:none}
+  .vr.vb .bx{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--steel);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--ink);transition:.15s}
+  .vr.vb input:checked ~ .bx{background:var(--acc);border-color:var(--acc);box-shadow:0 0 16px -2px rgba(255,106,19,.9)}
+  .vr.vb input:checked ~ .bx::after{content:"\2713"}
+  .vr.vb.on{background:rgba(255,106,19,.10)}
+  .vr.vsum{background:var(--panel2)}
+  .vr.vsum .vp s{color:var(--dim);font-weight:900;font-size:1.1rem;text-decoration-thickness:2px}
+  .vr.vhoy{background:var(--panel2);padding:18px 20px}
+  .vr.vhoy .vt b{font-size:1.1rem}
+  .vr.vhoy .vp b{color:var(--acc);font-size:1.5rem;text-shadow:0 0 24px rgba(255,106,19,.7)}
+  .vnota{color:var(--mut);font-size:1rem;text-align:center;margin:14px auto 0;max-width:720px}
+  .vnota b{color:var(--acc2)}
+  @media(max-width:520px){
+    /* a 360/390/414 el precio baja de renglon antes que empujar el texto:
+       el nombre de la pieza es lo que no puede partirse feo. */
+    .vr{flex-wrap:wrap;gap:8px 12px;padding:14px 16px}
+    .vr .vt{flex:1 1 100%}
+    .vr.vb .vt{flex:1 1 calc(100% - 36px)}
+    .vr .vp{flex:1 1 100%;text-align:left;display:flex;align-items:baseline;gap:10px}
+    .vr .vp em{display:inline}
+    .ancla s{font-size:1.2rem}
+  }
+
 </style>
 <script>
 /* PIXEL DE META: va en null a proposito. El pixel de esta oferta TODAVIA NO
@@ -345,7 +401,7 @@ if (PIXEL_ID) {
 
 <nav>
   <div class="wrap">
-    <div class="logo"><img class="mark" src="img/logo-glow-128.png" width="42" height="42" alt="Melamina Pro" decoding="async">MELAMINA<span class="sub">PRO</span></div>
+    <div class="logo"><img class="mark" src="img/logo-glow-128.png" width="42" height="42" alt="Melamina Pro" decoding="async"><span class="wm">MELAMINA<span class="sub">PRO</span></span></div>
     <a href="#comprar" class="btn">Lo quiero</a>
   </div>
 </nav>
@@ -410,8 +466,10 @@ if (PIXEL_ID) {
     <h2 class="title">Arma tu pack, un solo pago</h2>
     <div class="price-card">
       <div style="color:var(--mut);font-size:.9rem">Precio de hoy</div>
+      <div class="ancla"><s id="anc-lista">&nbsp;</s><span class="off" id="anc-off">&nbsp;</span></div>
       <div class="price-now" id="precio-grande">&nbsp;</div>
       <div style="color:var(--mut);margin-top:2px">pago unico &middot; acceso de por vida</div>
+      <div class="reloj" id="reloj"><span class="rl">Este precio termina hoy en</span><b id="reloj-d">--:--:--</b></div>
       <div style="color:var(--dim);font-size:.85rem;margin-top:10px">Pagas en la moneda de tu pais.</div>
       <ul class="price-list"><li><b>Mas de 1.600 planos de melamina</b> con la medida de cada pieza</li>
 <li><b>2.562 planos en total</b>: melamina, madera y metal, en 7.073 paginas</li>
@@ -424,12 +482,12 @@ if (PIXEL_ID) {
         <label class="bump" id="bump-fx">
           <input type="checkbox"><span class="bx"></span>
           <span class="bt">&#128295; <b>Pack MUEBLE INDUSTRIAL en metal</b><small>Mesas, estantes y racks en metal y madera. <b>408 planos</b> con la medida de cada pieza.</small></span>
-          <span class="bp" id="bp-fx">&nbsp;</span>
+          <span class="bp" id="bp-fx"><s id="bps-fx">&nbsp;</s><b id="bpn-fx">&nbsp;</b></span>
         </label>
         <label class="bump" id="bump-cin">
           <input type="checkbox"><span class="bx"></span>
           <span class="bt">&#128187; <b>Editables para cortar</b><small><b>60 archivos</b> para modificar a tu gusto: SketchUp, AutoCAD, DXF y Excel.</small></span>
-          <span class="bp" id="bp-cin">&nbsp;</span>
+          <span class="bp" id="bp-cin"><s id="bps-cin">&nbsp;</s><b id="bpn-cin">&nbsp;</b></span>
         </label>
         <div class="bump-nota" id="bump-nota">&nbsp;</div>
       </div>
@@ -563,7 +621,7 @@ if (PIXEL_ID) {
 
 <footer>
   <div class="wrap">
-    <div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="img/logo-glow-128.png" width="66" height="66" alt="Melamina Pro" decoding="async">MELAMINA<span class="sub">PRO</span></div>
+    <div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="img/logo-glow-128.png" width="66" height="66" alt="Melamina Pro" decoding="async"><span class="wm">MELAMINA<span class="sub">PRO</span></span></div>
     <p>&copy; 2026 &middot; Melamina Pro</p>
   </div>
 </footer>
@@ -710,13 +768,101 @@ if (PIXEL_ID) {
   var fx=document.querySelector('#bump-fx input'),cin=document.querySelector('#bump-cin input');
   var btn=document.getElementById('btn-pago'),big=document.getElementById('precio-grande'),nota=document.getElementById('bump-nota');
 
-  /* ANCLAJE: la suma de las piezas sueltas contra el precio de hoy.
-     Todo sale de PR/TAB, o sea de los precios que se cobran de verdad. */
-  var dFx=val('fx')-val('base'), dCin=val('cin')-val('base');
-  var suma=val('base')+dFx+dCin, hoy=val('todo');
-  pon('anc-base',fmt(val('base'))); pon('anc-fx',fmt(dFx)); pon('anc-cin',fmt(dCin));
-  pon('anc-suma',fmt(suma)); pon('anc-hoy',fmt(hoy)); pon('anc-ahorro',fmt(suma-hoy));
-  pon('st-1',fmt(val('base'))); pon('st-2',fmt(dFx)); pon('st-3',fmt(dCin));
+  /* ══ ANCLA v7 ═══════════════════════════════════════════════════════════
+     El precio de lista NO se inventa y NO se calcula como precio/0,3: es la
+     SUMA de la tabla de piezas sueltas, y el % que se publica es el de la
+     RESTA sobre esa suma. Cada USD de LISTA sale de lo que esa MISMA pieza se
+     vende suelta hoy en el nicho (la derivacion, pieza por pieza y con su
+     fuente, esta en el INFORME de la obra). Los precios que COBRA Stripe
+     (PR/LK) no se tocan: el tachado es un numero adicional y visual.        */
+  var LISTA={curso:29,planos:13,fx:9,cin:8,mega:5,pdf:4};   /* USD */
+  var BASE_K=['curso','planos','mega','pdf'];               /* lo que ya entra */
+  /* el grano de redondeo sale de la PROPIA TAB, no de una lista a mano: si los
+     tres precios de la moneda son enteros divisibles por 100, el ancla tambien
+     cae en centenas; si la moneda lleva decimales, termina en .99 como ellos. */
+  function grano(){
+    if(!MON) return 0.01;
+    var v=[MON.t['9.99'],MON.t['11.98'],MON.t['12.99']], i, j, g=1000, ok;
+    for(i=0;i<v.length;i++) if(v[i]%1!==0) return 0.01;
+    while(g>1){ ok=true;
+      for(j=0;j<v.length;j++) if(v[j]%g!==0) ok=false;
+      if(ok) return g; g/=10; }
+    return 1;
+  }
+  var FACTOR = MON ? MON.t['9.99']/9.99 : 1, G = grano();
+  /* siempre hacia ABAJO: redondear el ancla hacia arriba seria inflarla. */
+  function lista(k){
+    var x=LISTA[k]*FACTOR;
+    return (G===0.01) ? Math.floor(x)-0.01 : Math.floor(x/G)*G;
+  }
+  /* la suma es la de las filas YA REDONDEADAS, no el redondeo de la suma: asi
+     la resta que el visitante hace a mano sobre la tabla da exactamente el
+     numero tachado y el % del badge cierra con lo que tiene delante. */
+  function sumaLista(fxOn,cinOn){
+    var s=0,i;
+    for(i=0;i<BASE_K.length;i++) s+=lista(BASE_K[i]);
+    if(fxOn)  s+=lista('fx');
+    if(cinOn) s+=lista('cin');
+    return Math.round(s*100)/100;
+  }
+  var PISO_DESC=60;   /* fail-safe: si la tabla no sostiene 60%, NO se publica */
+  function descuento(k){
+    var s=sumaLista(k==='fx'||k==='todo', k==='cin'||k==='todo'), h=val(k);
+    if(!(s>h)) return null;
+    var pct=Math.floor(100*(1-h/s));
+    return (pct<PISO_DESC) ? null : {suma:s,hoy:h,pct:pct,ahorro:Math.round((s-h)*100)/100};
+  }
+  function pintarAncla(k){
+    var d=descuento(k), s=document.getElementById('anc-lista'),
+        b=document.getElementById('anc-off'), c=document.querySelector('.ancla');
+    if(!c) return;
+    if(!d){ c.style.display='none'; return; }   /* antes callarse que mentir */
+    c.style.display='';
+    if(s) s.textContent=fmt(d.suma);
+    if(b) b.textContent='-'+d.pct+'%';
+  }
+  function pintarTabla(k){
+    var i, t=document.getElementById('v-suma');
+    for(i in LISTA) if(LISTA.hasOwnProperty(i)) pon('vp-'+i, fmt(lista(i)));
+    if(!t) return;                              /* la base no lleva tabla */
+    var d=descuento(k);
+    t.textContent = d ? fmt(d.suma) : '';
+    pon('v-hoy', fmt(val(k)));
+    pon('v-ahorro', d ? fmt(d.ahorro) : '');
+    pon('v-pct',    d ? ' · un '+d.pct+'% menos' : '');
+    var vf=document.getElementById('vrow-fx'), vc=document.getElementById('vrow-cin');
+    if(vf){ vf.classList.toggle('on',fx.checked);
+            pon('ve-fx', fx.checked?'sumado a tu pago':'marcalo y se suma'); }
+    if(vc){ vc.classList.toggle('on',cin.checked);
+            pon('ve-cin',cin.checked?'sumado a tu pago':'marcalo y se suma'); }
+  }
+  /* ══ RELOJ ══════════════════════════════════════════════════════════════
+     Cuenta hasta la MEDIANOCHE LOCAL del visitante, no 15 minutos por sesion.
+     El molde de CapCut reiniciaba su cuenta en cada visita y por eso se
+     retiro. Aca no hay marcador que guardar ni que pueda perderse: la
+     medianoche local ES el marcador. Recargar no lo reinicia, y con el
+     storage bloqueado da exactamente la misma hora, porque es la misma hora. */
+  function pad(n){ return (n<10?'0':'')+n; }
+  function reloj(){
+    var e=document.getElementById('reloj-d');
+    if(!e) return;
+    function tic(){
+      var fin=new Date(); fin.setHours(24,0,0,0);
+      var s=Math.floor(Math.max(0,fin-new Date())/1000);
+      e.textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60);
+    }
+    tic(); setInterval(tic,1000);
+  }
+  /* las casillas de la tabla de abajo y las del bloque de compra son el MISMO
+     bump: se reflejan en los dos sentidos para que nunca muestren distinto. */
+  function espejo(){
+    [['fx',fx],['cin',cin]].forEach(function(par){
+      var v=document.querySelector('#vrow-'+par[0]+' input');
+      if(!v) return;
+      v.checked=par[1].checked;
+      v.addEventListener('change',function(){ par[1].checked=v.checked; up(); });
+    });
+  }
 
   function up(){
     var k = fx.checked&&cin.checked ? 'todo' : fx.checked ? 'fx' : cin.checked ? 'cin' : 'base';
@@ -735,13 +881,19 @@ if (PIXEL_ID) {
     pon('buybar-precio',p);
     document.getElementById('bump-fx').classList.toggle('on',fx.checked);
     document.getElementById('bump-cin').classList.toggle('on',cin.checked);
-    var pTodo=fmt(hoy), ah=fmt(suma-hoy);
+    pintarAncla(k);
+    pintarTabla(k);
+    var pTodo=fmt(val('todo')), ah=fmt(sumaLista(true,true)-val('todo'));
     nota.innerHTML = (k==='todo')
-      ? '\ud83c\udf89 Te llevas <b>TODO por '+pTodo+'</b> ('+ah+' menos que por separado)'
-      : 'Marca los dos y te llevas <b>TODO por '+pTodo+'</b>: '+ah+' menos que por separado';
+      ? '\ud83c\udf89 Te llevas <b>TODO por '+pTodo+'</b> ('+ah+' menos que comprando cada pieza suelta)'
+      : 'Marca los dos y te llevas <b>TODO por '+pTodo+'</b>: '+ah+' menos que comprando cada pieza suelta';
   }
   var hb=document.getElementById('btn-hero'); if(hb) hb.textContent='Empezar hoy \u00b7 '+precio('base')+' \u2192';
-  pon('bp-fx','+'+fmt(dFx)); pon('bp-cin','+'+fmt(dCin));
+  /* el bump tambien lleva descuento: su valor suelto tachado al lado del
+     precio de hoy. El tachado sale de la MISMA tabla, no de otra cuenta. */
+  pon('bps-fx', fmt(lista('fx')));  pon('bpn-fx', '+'+fmt(val('fx')-val('base')));
+  pon('bps-cin',fmt(lista('cin'))); pon('bpn-cin','+'+fmt(val('cin')-val('base')));
+  reloj(); espejo();
   fx.addEventListener('change',up); cin.addEventListener('change',up);
   up();
 })();
