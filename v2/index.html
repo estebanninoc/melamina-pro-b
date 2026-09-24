@@ -327,7 +327,7 @@
   .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
   /* el tachado NO es un gris ilegible: --dim sobre --panel2 da 8,41:1 (el piso
      AAA de texto normal es 7). El error clasico de esta pieza es justo ese. */
-  .ancla s{color:var(--dim);font-family:var(--disp);font-weight:800;font-size:1.35rem;text-decoration-thickness:2px}
+  .ancla s{color:var(--dim);font-family:var(--disp);font-weight:400;font-size:1.35rem;text-decoration-thickness:2px}
   .ancla .off{background:var(--acc);color:var(--ink);font-family:var(--disp);font-weight:900;font-size:.9rem;letter-spacing:-.01em;padding:5px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 0 22px -6px rgba(255,106,19,.9)}
   /* RELOJ: cuenta hasta la MEDIANOCHE LOCAL del visitante, no 15 minutos por
      sesion. El molde de CapCut reiniciaba en cada visita y por eso se retiro.
@@ -339,7 +339,7 @@
   .reloj b{font-family:var(--disp);font-weight:900;font-size:1.2rem;color:var(--tx);font-variant-numeric:tabular-nums;letter-spacing:.02em}
   /* el bump ahora lleva su valor suelto tachado encima del precio de hoy */
   .bump .bp{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15}
-  .bump .bp s{color:var(--dim);font-size:.9rem;font-weight:700}
+  .bump .bp s{color:var(--dim);font-size:.9rem;font-weight:400}
 
   /* ══ TABLA DE VALOR (v7): UN solo bloque donde antes habia CUATRO
      ("Arma tu pack" + "Contado, no prometido" + #anclaje + "Todo lo que entra
@@ -382,6 +382,11 @@
      las 8 filas, incluidas la suma y el total. */
   .vr .vp{text-align:right;font-family:var(--disp);white-space:nowrap}
   .vr .vp b{font-weight:900;font-size:1.05rem;color:var(--tx)}
+  /* v8 (orden de Esteban 24-sep): el precio de cada pieza suelta se leia
+     como el precio de HOY porque iba en negrilla 900 y color de texto.
+     Es el precio ANTERIOR: va tachado, sin negrilla y en gris, para que el
+     unico numero que se lea como vigente sea "Todo junto, hoy". */
+  .vr .vp s{font-weight:400;color:var(--dim);font-size:1.02rem;text-decoration-thickness:1px}
   .vr .vp em{display:block;font-style:normal;font-size:.9rem;font-weight:800;color:var(--acc3);font-family:var(--sans)}
   /* ENCABEZADO DE GRUPO: lo que ya entra y lo que se suma dejan de estar
      intercalados. Antes las 2 filas con casilla caian en los puestos 3 y 4 de
@@ -396,7 +401,7 @@
   .vr.vb input:checked ~ .bx::after{content:"\2713"}
   .vr.vb.on{background:rgba(255,106,19,.10)}
   .vr.vsum{background:var(--panel2)}
-  .vr.vsum .vp s{color:var(--dim);font-weight:900;font-size:1.1rem;text-decoration-thickness:2px}
+  .vr.vsum .vp s{color:var(--dim);font-weight:400;font-size:1.1rem;text-decoration-thickness:2px}
   .vr.vhoy{background:var(--panel2);padding:17px 18px}
   .vr.vhoy .vt{font-size:1.1rem}
   .vr.vhoy .vp b{color:var(--acc);font-size:1.5rem;text-shadow:0 0 24px rgba(255,106,19,.7)}
@@ -666,13 +671,13 @@ if (PIXEL_ID) {
     <p class="lead">Cada pieza se vende sola.</p>
     <div class="vtab">
       <div class="vg">Ya viene incluido</div>
-      <div class="vr"><span class="vi" aria-hidden="true">&#127916;</span><b class="vt">Curso completo en video</b><div class="vp"><b id="vp-curso">&nbsp;</b></div><small class="vd">+460 clases: medir, cortar, cantear y cobrar</small></div>
-      <div class="vr"><span class="vi" aria-hidden="true">&#128208;</span><b class="vt">Biblioteca de planos</b><div class="vp"><b id="vp-planos">&nbsp;</b></div><small class="vd">+1.600 laminas acotadas &middot; 2.562 planos, 7.073 paginas</small></div>
-      <div class="vr"><span class="vi" aria-hidden="true">&#128230;</span><b class="vt">Mega Pack de planos</b><div class="vp"><b id="vp-mega">&nbsp;</b></div><small class="vd">5 carpetas con catalogo, guia y SketchUp Pro</small></div>
-      <div class="vr"><span class="vi" aria-hidden="true">&#128196;</span><b class="vt">18 PDF de planos</b><div class="vp"><b id="vp-pdf">&nbsp;</b></div><small class="vd">Armarios, cocinas, roperos y centros de TV</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#127916;</span><b class="vt">Curso completo en video</b><div class="vp"><s id="vp-curso">&nbsp;</s></div><small class="vd">+460 clases: medir, cortar, cantear y cobrar</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#128208;</span><b class="vt">Biblioteca de planos</b><div class="vp"><s id="vp-planos">&nbsp;</s></div><small class="vd">+1.600 laminas acotadas &middot; 2.562 planos, 7.073 paginas</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#128230;</span><b class="vt">Mega Pack de planos</b><div class="vp"><s id="vp-mega">&nbsp;</s></div><small class="vd">5 carpetas con catalogo, guia y SketchUp Pro</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#128196;</span><b class="vt">18 PDF de planos</b><div class="vp"><s id="vp-pdf">&nbsp;</s></div><small class="vd">Armarios, cocinas, roperos y centros de TV</small></div>
       <div class="vg vgs">Sumalo si lo quieres</div>
-      <label class="vr vb" id="vrow-fx"><input type="checkbox"><span class="bx"></span><span class="vi" aria-hidden="true">&#128295;</span><b class="vt">Pack Mueble Industrial</b><div class="vp"><b id="vp-fx">&nbsp;</b><em class="vsel" id="ve-fx">marcalo</em></div><small class="vd">445 laminas y 408 planos en 1.344 paginas</small></label>
-      <label class="vr vb" id="vrow-cin"><input type="checkbox"><span class="bx"></span><span class="vi" aria-hidden="true">&#128190;</span><b class="vt">Editables para cortar</b><div class="vp"><b id="vp-cin">&nbsp;</b><em class="vsel" id="ve-cin">marcalo</em></div><small class="vd">60 archivos: SketchUp, AutoCAD, DXF y Excel</small></label>
+      <label class="vr vb" id="vrow-fx"><input type="checkbox"><span class="bx"></span><span class="vi" aria-hidden="true">&#128295;</span><b class="vt">Pack Mueble Industrial</b><div class="vp"><s id="vp-fx">&nbsp;</s><em class="vsel" id="ve-fx">marcalo</em></div><small class="vd">445 laminas y 408 planos en 1.344 paginas</small></label>
+      <label class="vr vb" id="vrow-cin"><input type="checkbox"><span class="bx"></span><span class="vi" aria-hidden="true">&#128190;</span><b class="vt">Editables para cortar</b><div class="vp"><s id="vp-cin">&nbsp;</s><em class="vsel" id="ve-cin">marcalo</em></div><small class="vd">60 archivos: SketchUp, AutoCAD, DXF y Excel</small></label>
       <div class="vr vsum"><b class="vt">Cada pieza por separado</b><div class="vp"><s id="v-suma">&nbsp;</s></div></div>
       <div class="vr vhoy"><b class="vt">Todo junto, hoy</b><div class="vp"><b id="v-hoy">&nbsp;</b></div></div>
     </div>
