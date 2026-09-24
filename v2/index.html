@@ -348,14 +348,46 @@
   .vtab{max-width:720px;margin:30px auto 0;background:var(--panel);border:1px solid var(--steel);border-radius:var(--radius);overflow:hidden}
   /* el separador pasa de --line (2,28:1) a --steel (6,31:1): la linea que
      separa filas de precio es informacion, y 1.4.11 le pide 3:1. */
-  .vr{display:flex;align-items:center;gap:14px;padding:15px 20px;border-bottom:1px solid var(--steel)}
+  /* ══ LA FILA (pack-emojis-v2): de flex a REJILLA ════════════════════════
+     La fila tenia una sola caja de texto con el nombre y la descripcion
+     adentro, y en movil el precio se iba a un renglon propio ALINEADO A LA
+     IZQUIERDA debajo de todo: por eso "bailaba" segun el largo del nombre.
+     Ahora son columnas declaradas. El renglon de arriba lleva SIEMPRE
+     casilla + icono + nombre + precio, y la descripcion cae debajo ocupando
+     el ancho entero, alineada bajo el nombre. Asi el precio nunca se mueve de
+     columna y la descripcion no compite por los 100 px que quedaban. */
+  .vr{display:grid;grid-template-columns:28px 1fr 96px;align-items:center;column-gap:12px;padding:13px 18px;border-bottom:1px solid var(--steel)}
+  .vr.vb{grid-template-columns:22px 28px 1fr 96px}
+  .vr.vsum,.vr.vhoy{grid-template-columns:1fr 96px}
   .vr:last-child{border-bottom:none}
-  .vr .vt{flex:1 1 auto;min-width:0}
-  .vr .vt b{display:block;font-size:1.02rem;overflow-wrap:anywhere}
-  .vr .vt small{display:block;color:var(--mut);font-size:1rem;margin-top:3px}
-  .vr .vp{flex:0 0 auto;text-align:right;font-family:var(--disp);white-space:nowrap}
+  /* ══ EL ICONO DE LA FILA ════════════════════════════════════════════════
+     Es el MISMO emoji de siempre, pero NO va suelto dentro del texto.
+     Medido sobre Noto Color Emoji, que es la que pinta Android: el glifo es un
+     bitmap de 136x128 px sobre un strike de 109 ppem, o sea 1,1743 em de alto
+     contra los 0,7275 em de las mayusculas de Inter. Suelto en el renglon se
+     ve 61,4% mas grande que el nombre que acompana y se lleva 1,2477 em de
+     avance del ancho util de la fila -- eso es lo que se veia "brusco".
+     En caja propia con line-height:1 el dibujo se centra por CAJA y no por
+     linea base: su centro queda a 0,0024 em del centro de la caja (0,05 px a
+     22 px de cuerpo), el tamano es identico en las 6 filas, y el ancho deja de
+     robarle lugar al texto porque ahora es una columna declarada.
+     El cuerpo sale del ancho, no del alto: 1,2477 x 22 = 27,4 px entra en 28. */
+  .vr .vi{width:28px;height:28px;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+  .vr .vt{font-size:1.02rem;font-weight:700;min-width:0;overflow-wrap:anywhere}
+  .vr .vd{grid-column:2/-1;display:block;color:var(--mut);font-size:.95rem;margin-top:2px}
+  .vr.vb .vd{grid-column:3/-1}
+  /* la columna de precio deja de bailar con el largo del nombre: 96 px fijos,
+     que es el string MAS ANCHO que las 14 monedas de la TAB pueden producir
+     (la suma en guaranies, 91,9 px) redondeado hacia arriba. Misma columna en
+     las 8 filas, incluidas la suma y el total. */
+  .vr .vp{text-align:right;font-family:var(--disp);white-space:nowrap}
   .vr .vp b{font-weight:900;font-size:1.05rem;color:var(--tx)}
   .vr .vp em{display:block;font-style:normal;font-size:.9rem;font-weight:800;color:var(--acc3);font-family:var(--sans)}
+  /* ENCABEZADO DE GRUPO: lo que ya entra y lo que se suma dejan de estar
+     intercalados. Antes las 2 filas con casilla caian en los puestos 3 y 4 de
+     6, asi que habia que leer fila por fila para saber que estaba pagando. */
+  .vg{font-family:var(--sans);font-size:.72rem;font-weight:800;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:var(--acc3);background:var(--panel2);padding:10px 18px;border-bottom:1px solid var(--steel)}
+  .vg.vgs{color:var(--acc)}
   .vr.vb{cursor:pointer;transition:background .15s,border-color .15s}
   .vr.vb:hover{background:var(--panel2)}
   .vr.vb input{display:none}
@@ -365,19 +397,24 @@
   .vr.vb.on{background:rgba(255,106,19,.10)}
   .vr.vsum{background:var(--panel2)}
   .vr.vsum .vp s{color:var(--dim);font-weight:900;font-size:1.1rem;text-decoration-thickness:2px}
-  .vr.vhoy{background:var(--panel2);padding:18px 20px}
-  .vr.vhoy .vt b{font-size:1.1rem}
+  .vr.vhoy{background:var(--panel2);padding:17px 18px}
+  .vr.vhoy .vt{font-size:1.1rem}
   .vr.vhoy .vp b{color:var(--acc);font-size:1.5rem;text-shadow:0 0 24px rgba(255,106,19,.7)}
   .vnota{color:var(--mut);font-size:1rem;text-align:center;margin:14px auto 0;max-width:720px}
   .vnota b{color:var(--acc2)}
   @media(max-width:520px){
-    /* a 360/390/414 el precio baja de renglon antes que empujar el texto:
-       el nombre de la pieza es lo que no puede partirse feo. */
-    .vr{flex-wrap:wrap;gap:8px 12px;padding:14px 16px}
-    .vr .vt{flex:1 1 100%}
-    .vr.vb .vt{flex:1 1 calc(100% - 36px)}
-    .vr .vp{flex:1 1 100%;text-align:left;display:flex;align-items:baseline;gap:10px}
-    .vr .vp em{display:inline}
+    /* pack-emojis-v2: el precio YA NO baja de renglon ni se va a la izquierda.
+       Presupuesto medido a 360 px: 318 de tabla - 28 de padding = 290 utiles.
+       Fila con casilla: 22 + 26 + 86 + 3 huecos de 9 = 161, le quedan 129 al
+       nombre y la palabra mas ancha que puede caer ahi mide 78,5 px. La
+       descripcion no compite por ese hueco: va debajo, con 224 px propios. */
+    .vr{column-gap:9px;padding:12px 14px;grid-template-columns:26px 1fr 86px}
+    .vr.vb{grid-template-columns:22px 26px 1fr 86px}
+    .vr.vsum,.vr.vhoy{grid-template-columns:1fr 86px}
+    .vr .vi{width:26px;height:26px;font-size:20px}
+    .vr .vp b{font-size:.95rem}
+    .vr.vhoy{padding:16px 14px}
+    .vg{padding:9px 14px}
     .ancla s{font-size:1.2rem}
   }
 
@@ -611,27 +648,33 @@ if (PIXEL_ID) {
   </div>
 </section>
 
-<!-- v7 · UN SOLO BLOQUE DE VALOR. Antes eran CUATRO diciendo lo mismo:
-     "Arma tu pack" (#comprar), "#anclaje", "Contado, no prometido" y "Todo lo
-     que entra con su precio suelto" -- los cuatro listaban las piezas con su
-     valor. Ahora la tabla con las casillas ES el arma-mi-pack, y sus numeros
-     SON el contado-no-prometido. Un titulo, una lista, un boton.
-     El precio de lista NO se invento: es la suma de esta misma tabla, y el %
-     que se publica es el de la resta. -->
+<!-- v7 · UN SOLO BLOQUE DE VALOR (antes eran CUATRO diciendo lo mismo). La
+     tabla con las casillas ES el arma-mi-pack y sus numeros SON el contado-no-
+     prometido. El precio de lista no se invento: es la suma de esta misma
+     tabla, y el % que se publica es el de la resta.
+     pack-emojis-v2 · TRES cambios sobre esa tabla, los tres medidos:
+     1) un icono por fila, en columna propia de 28 px (ver .vi en el CSS);
+     2) la descripcion baja a UNA linea: el bloque pasa de 1.057 a 666
+        caracteres visibles (-37,0%) sin perder un solo numero publicado;
+     3) las 2 filas con casilla salen de los puestos 3 y 4 y se agrupan al
+        final bajo su propio encabezado, y el precio deja de bajar de renglon
+        en movil: casilla, icono, texto y precio comparten linea a 360 px. -->
 <section id="valor" style="background:var(--panel)">
   <div class="wrap">
     <div class="eyebrow">Cuanto cuesta por separado</div>
     <h2 class="title">Arma tu pack: lo que vale cada pieza</h2>
-    <p class="lead">Cada fila se vende sola, y ningun numero esta redondeado hacia arriba. Las dos con casilla las marcas aqui y se suman a tu pago.</p>
+    <p class="lead">Cada pieza se vende sola y ningun numero esta redondeado hacia arriba.</p>
     <div class="vtab">
-      <div class="vr"><div class="vt"><b>Curso completo en video</b><small>+460 clases por tema: medir, despiezar, cortar, cantear, armar y cobrar. Tambien SketchUp, Resina Epoxica y Polyboard.</small></div><div class="vp"><b id="vp-curso">&nbsp;</b><em>ya incluido</em></div></div>
-      <div class="vr"><div class="vt"><b>Biblioteca de planos con medidas</b><small>+1.600 laminas de melamina con la medida de cada pieza. 2.562 planos en total entre melamina, madera y metal, en 7.073 paginas.</small></div><div class="vp"><b id="vp-planos">&nbsp;</b><em>ya incluido</em></div></div>
-      <label class="vr vb" id="vrow-fx"><input type="checkbox"><span class="bx"></span><div class="vt"><b>Pack MUEBLE INDUSTRIAL en metal</b><small>4 packs, 445 laminas, 408 planos en acero y madera, 1.344 paginas.</small></div><div class="vp"><b id="vp-fx">&nbsp;</b><em class="vsel" id="ve-fx">marcalo y se suma</em></div></label>
-      <label class="vr vb" id="vrow-cin"><input type="checkbox"><span class="bx"></span><div class="vt"><b>Editables para cortar</b><small>60 archivos: 14 SketchUp, 11 AutoCAD, 33 DXF y 2 Excel de despiece.</small></div><div class="vp"><b id="vp-cin">&nbsp;</b><em class="vsel" id="ve-cin">marcalo y se suma</em></div></label>
-      <div class="vr"><div class="vt"><b>Mega Pack de planos</b><small>5 carpetas: catalogo, guia teorica, SketchUp Pro y ejemplos de armado.</small></div><div class="vp"><b id="vp-mega">&nbsp;</b><em>ya incluido</em></div></div>
-      <div class="vr"><div class="vt"><b>18 PDF de planos y catalogos</b><small>Armarios, cocinas, roperos, escritorios y centros de TV.</small></div><div class="vp"><b id="vp-pdf">&nbsp;</b><em>ya incluido</em></div></div>
-      <div class="vr vsum"><div class="vt"><b>Comprando cada pieza por separado</b></div><div class="vp"><s id="v-suma">&nbsp;</s></div></div>
-      <div class="vr vhoy"><div class="vt"><b>Todo junto, hoy</b></div><div class="vp"><b id="v-hoy">&nbsp;</b></div></div>
+      <div class="vg">Ya viene incluido</div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#127916;</span><b class="vt">Curso completo en video</b><div class="vp"><b id="vp-curso">&nbsp;</b></div><small class="vd">+460 clases: medir, cortar, cantear y cobrar</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#128208;</span><b class="vt">Biblioteca de planos</b><div class="vp"><b id="vp-planos">&nbsp;</b></div><small class="vd">+1.600 laminas acotadas &middot; 2.562 planos, 7.073 paginas</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#128230;</span><b class="vt">Mega Pack de planos</b><div class="vp"><b id="vp-mega">&nbsp;</b></div><small class="vd">5 carpetas con catalogo, guia y SketchUp Pro</small></div>
+      <div class="vr"><span class="vi" aria-hidden="true">&#128196;</span><b class="vt">18 PDF de planos</b><div class="vp"><b id="vp-pdf">&nbsp;</b></div><small class="vd">Armarios, cocinas, roperos y centros de TV</small></div>
+      <div class="vg vgs">Sumalo si lo quieres</div>
+      <label class="vr vb" id="vrow-fx"><input type="checkbox"><span class="bx"></span><span class="vi" aria-hidden="true">&#128295;</span><b class="vt">Pack Mueble Industrial</b><div class="vp"><b id="vp-fx">&nbsp;</b><em class="vsel" id="ve-fx">marcalo</em></div><small class="vd">445 laminas y 408 planos en 1.344 paginas</small></label>
+      <label class="vr vb" id="vrow-cin"><input type="checkbox"><span class="bx"></span><span class="vi" aria-hidden="true">&#128190;</span><b class="vt">Editables para cortar</b><div class="vp"><b id="vp-cin">&nbsp;</b><em class="vsel" id="ve-cin">marcalo</em></div><small class="vd">60 archivos: SketchUp, AutoCAD, DXF y Excel</small></label>
+      <div class="vr vsum"><b class="vt">Cada pieza por separado</b><div class="vp"><s id="v-suma">&nbsp;</s></div></div>
+      <div class="vr vhoy"><b class="vt">Todo junto, hoy</b><div class="vp"><b id="v-hoy">&nbsp;</b></div></div>
     </div>
     <p class="vnota">Te ahorras <b id="v-ahorro">&nbsp;</b><span id="v-pct">&nbsp;</span>. Un solo pago, sin mensualidad.</p>
     <div style="margin-top:28px;text-align:center"><a href="#comprar" class="btn big">Quiero mi pack &rarr;</a></div>
@@ -882,9 +925,9 @@ if (PIXEL_ID) {
     pon('v-pct',    d ? ' · un '+d.pct+'% menos' : '');
     var vf=document.getElementById('vrow-fx'), vc=document.getElementById('vrow-cin');
     if(vf){ vf.classList.toggle('on',fx.checked);
-            pon('ve-fx', fx.checked?'sumado a tu pago':'marcalo y se suma'); }
+            pon('ve-fx', fx.checked?'sumado':'marcalo'); }
     if(vc){ vc.classList.toggle('on',cin.checked);
-            pon('ve-cin',cin.checked?'sumado a tu pago':'marcalo y se suma'); }
+            pon('ve-cin',cin.checked?'sumado':'marcalo'); }
   }
   /* ══ RELOJ ══════════════════════════════════════════════════════════════
      Cuenta hasta la MEDIANOCHE LOCAL del visitante, no 15 minutos por sesion.
