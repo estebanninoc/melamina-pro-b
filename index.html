@@ -23,9 +23,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700;800&display=swap"></noscript>
 <!-- el poster del hero es lo primero que se ve: se pide de una y con prioridad.
-     Ya no viene de un tercero: es un frame de nuestro propio clip, 17162 B
-     a 360px de ancho. El clip pesa 1190363 B y lo pide el JS, no el parser. -->
-<link rel="preload" as="image" href="video/yt/XqqLSahN48A.jpg" fetchpriority="high">
+     Es un frame de NUESTRO propio clip, 23720 B. El clip pesa
+     222434 B (81.3% menos que el de ayer) y lo pide el JS, no el parser. -->
+<link rel="preload" as="image" href="video/hero.jpg" fetchpriority="high">
 <style>
   :root{
     /* v4 PALETA "TALLER" — derivada del target medido, no del gusto.
@@ -126,7 +126,7 @@
   .phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:80px;height:6px;border-radius:99px;background:var(--line);z-index:3}
   .screen{border-radius:32px;overflow:hidden;background:var(--deep);border:1px solid var(--line)}
   .pv{position:relative;overflow:hidden;aspect-ratio:9/12;background:radial-gradient(120% 75% at 50% 22%,rgba(255,106,19,.30),transparent 62%),linear-gradient(165deg,var(--panel2),var(--bg));display:flex;align-items:center;justify-content:center}
-  .pv .yt-hero{position:absolute;top:50%;left:50%;width:102%;height:136%;transform:translate(-50%,-50%);border:0;pointer-events:none;z-index:1}
+  .pv .vd-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:1}
   .pv .pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(.85)}
   .pv .tag{position:absolute;z-index:2;top:12px;left:12px;font-size:.6rem;font-weight:800;color:var(--ink);background:var(--acc);padding:4px 10px;border-radius:99px}
   .pv .rec{position:absolute;z-index:2;top:12px;right:12px;font-size:.58rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:5px}
@@ -166,7 +166,7 @@
   .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
   .fx{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 1px rgba(255,106,19,.10),0 10px 28px -22px rgba(255,106,19,.8);display:flex;align-items:flex-end;padding:14px;isolation:isolate;transition:transform .18s ease,border-color .18s}
   .fx:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(255,106,19,.45),0 14px 34px -16px rgba(255,106,19,.9)}
-  .fx .yt-live{position:absolute;top:50%;left:50%;width:101%;height:135%;transform:translate(-50%,-50%);border:0;pointer-events:none;z-index:-1}
+  .fx .vd-live{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:-1}
   .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
   .fx::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--g)}
   .fx::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 60% at 30% 18%,rgba(255,255,255,.18),transparent 55%),linear-gradient(180deg,transparent 28%,rgba(0,0,0,.82))}
@@ -181,10 +181,10 @@
   .fx-note{color:var(--dim);font-size:1rem;margin-top:16px;max-width:760px}
   /* reja de encuadre: si entra un 16:9 se ve CHICO Y BIEN, nunca grande y roto */
   .fx.h16{aspect-ratio:16/9}
-  .fx.h16 .yt-live{top:0;left:0;width:100%;height:100%;transform:none}
+  .fx.h16 .vd-live{object-fit:contain;background:var(--bg)}
   .fx.h16 .fx-th{object-fit:contain;background:var(--bg)}
   .pv.h16{aspect-ratio:16/9}
-  .pv.h16 .yt-hero{top:0;left:0;width:100%;height:100%;transform:none}
+  .pv.h16 .vd-hero{object-fit:contain;background:var(--bg)}
   .pv.h16 .pv-poster{object-fit:contain;background:var(--bg)}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
@@ -418,7 +418,7 @@ if (PIXEL_ID) {
       <div class="device" aria-hidden="true">
         <div class="phone"><div class="screen">
           <div class="pv">
-            <img class="pv-poster" src="video/yt/XqqLSahN48A.jpg" alt="" width="360" height="640" fetchpriority="high" decoding="async">
+            <img class="pv-poster" src="video/hero.jpg" alt="" width="480" height="854" fetchpriority="high" decoding="async">
             <span class="tag">Con medidas</span><span class="rec">+1.600 planos</span>
           </div>
           <div class="tl">
@@ -443,16 +443,16 @@ if (PIXEL_ID) {
   <div class="wrap">
     <div class="eyebrow">Que hay adentro</div>
     <h2 class="title">Planos de lo que la gente pide todos los dias</h2>
-    <p class="lead">Closets, cocinas, roperos, escritorios y centros de TV. Videos p&uacute;blicos de YouTube, de sus autores, no del curso:</p>
+    <p class="lead">Closets, cocinas, roperos, escritorios y centros de TV. Los mismos clips que ves en nuestros anuncios, servidos desde esta p&aacute;gina:</p>
     <div class="gallery">
-      <div class="fx g1" data-yt="fJlO5m2FwHU"><img class="fx-th" src="video/yt/fJlO5m2FwHU.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Cocina<br>integral</span></div>
-      <div class="fx g2" data-yt="8kLQJuBvoqM"><img class="fx-th" src="video/yt/8kLQJuBvoqM.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Cl&oacute;set por<br>m&oacute;dulos</span></div>
-      <div class="fx g3" data-yt="hVAE2VxnDWU"><img class="fx-th" src="video/yt/hVAE2VxnDWU.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Bisagras<br>de cazoleta</span></div>
-      <div class="fx g4" data-yt="XpKsJZWDKEg"><img class="fx-th" src="video/yt/XpKsJZWDKEg.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Correderas<br>y cajones</span></div>
-      <div class="fx g5" data-yt="FgtS5U57lZY"><img class="fx-th" src="video/yt/FgtS5U57lZY.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Corte sin<br>astillar</span></div>
-      <div class="fx g6" data-yt="oz6lADSozHM"><img class="fx-th" src="video/yt/oz6lADSozHM.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Canteado<br>con enchapadora</span></div>
-      <div class="fx g7" data-yt="4v-L1Ls9OXs"><img class="fx-th" src="video/yt/4v-L1Ls9OXs.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Armado<br>con minifix</span></div>
-      <div class="fx g8" data-yt="jAyRANTc104"><img class="fx-th" src="video/yt/jAyRANTc104.jpg" alt="" width="270" height="480" loading="lazy" decoding="async"><span class="ply"></span><span>Herramientas<br>del taller</span></div>
+      <div class="fx g1" data-v="v1.mp4"><img class="fx-th" src="video/v1.jpg" alt="" width="480" height="854" loading="lazy" decoding="async"><span class="ply"></span><span>Corte y<br>armado</span></div>
+      <div class="fx g2" data-v="v2.mp4"><img class="fx-th" src="video/v2.jpg" alt="" width="432" height="768" loading="lazy" decoding="async"><span class="ply"></span><span>Mueble<br>terminado</span></div>
+      <div class="fx g3" data-v="v3.mp4"><img class="fx-th" src="video/v3.jpg" alt="" width="480" height="854" loading="lazy" decoding="async"><span class="ply"></span><span>Mesas y<br>escritorios</span></div>
+      <div class="fx g4" data-v="v4.mp4"><img class="fx-th" src="video/v4.jpg" alt="" width="432" height="768" loading="lazy" decoding="async"><span class="ply"></span><span>Armarios<br>a medida</span></div>
+      <div class="fx g5" data-v="v5.mp4"><img class="fx-th" src="video/v5.jpg" alt="" width="432" height="768" loading="lazy" decoding="async"><span class="ply"></span><span>Herrajes<br>y bisagras</span></div>
+      <div class="fx g6" data-v="v6.mp4"><img class="fx-th" src="video/v6.jpg" alt="" width="432" height="768" loading="lazy" decoding="async"><span class="ply"></span><span>Cajones<br>y correderas</span></div>
+      <div class="fx g7" data-v="v7.mp4"><img class="fx-th" src="video/v7.jpg" alt="" width="432" height="768" loading="lazy" decoding="async"><span class="ply"></span><span>Montaje<br>e instalacion</span></div>
+      <div class="fx g8" data-v="v8.mp4"><img class="fx-th" src="video/v8.jpg" alt="" width="432" height="768" loading="lazy" decoding="async"><span class="ply"></span><span>Estructura<br>y despiece</span></div>
     </div>
   </div>
 </section>
@@ -632,75 +632,71 @@ if (PIXEL_ID) {
 </div>
 
 <script>
-/* VIDEO — v6: vuelven los shorts de YouTube (orden de Esteban), pero con la
-   MECANICA DE PESO que gano la v5, no con la de la version vieja que metia los
-   8 iframes de una.
-   Costo medido de un embed: ~1,77 MB (145 KB de HTML + 1,63 MB de base.js).
-   Por eso:
-     - TOPE DURO: 0 bytes de YouTube antes de que el hero este inyectado. No hay
-       preconnect ni preload en el <head>: el preconnect lo pone ESTE script,
-       una linea antes de crear el hero.
-     - el HERO arranca primero y de una (no espera window.load, que no dispara
-       hasta que termina todo lo demas).
+/* VIDEO — los 9 clips son los MISMOS creativos que corren en nuestros anuncios de
+   Meta, alojados en ESTE repo. Se fueron los iframes de YouTube y con ellos el
+   tercero: un embed medido pesaba 1.775.078 B (146.035 de HTML + 1.629.043 de
+   base.js) y habia 9 por pagina. Ahora son <video> del mismo origen, mudos, en
+   loop, sin controles y sin audio dentro del archivo.
+   Los 9 se recomprimieron contra un piso de SSIM declarado (hero 0,940 · mini
+   0,920) buscando el minimo peso que todavia pasa esa vara: no se apreto hasta
+   que se viera mal, se apreto hasta el piso y ahi se paro.
+   Se conserva la mecanica de peso que ya se habia ganado:
+     - el HERO arranca de una (no espera window.load, que no dispara hasta que
+       termina todo lo demas) — y hasta esa linea la pagina no pidio un byte a
+       ningun tercero, porque ya no hay ninguno que pedir.
      - los 8 mini entran por IntersectionObserver, de a 3 vivos como maximo; el
-       que sale de pantalla suelta su iframe (corta la descarga) y vuelve a su
-       poster, que es un JPG de ESTE repo.
-   Los clips propios NO se borraron: siguen en video/, sin referenciar. */
+       que sale de pantalla SUELTA su descarga y vuelve a su poster.
+     - sin IntersectionObserver cargan todos: nunca una pantalla vacia.
+     - con saveData o 2g no se carga un solo byte de video: quedan los posters. */
 (function(){
+  var BASE = 'video/';
   var con = navigator.connection || {};
   var lento = con.saveData === true || /(^|-)2g$/.test(con.effectiveType || '');
   if (lento) return; /* internet lento o ahorro de datos: solo posters, cero video */
 
-  var CALIENTE = false;
-  function calentar(){
-    if (CALIENTE) return; CALIENTE = true;
-    ['https://www.youtube-nocookie.com','https://i.ytimg.com'].forEach(function(h){
-      var l = document.createElement('link'); l.rel = 'preconnect'; l.href = h;
-      l.crossOrigin = ''; document.head.appendChild(l);
-    });
-  }
-  function prender(el, id, clase){
-    var f = el.querySelector('iframe.' + clase);
-    if (f) return f;
-    calentar();
-    f = document.createElement('iframe');
-    f.className = clase;
-    f.src = 'https://www.youtube-nocookie.com/embed/' + id +
-            '?autoplay=1&mute=1&loop=1&playlist=' + id +
-            '&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3';
-    f.allow = 'autoplay; encrypted-media';
-    f.setAttribute('loading','eager');
-    f.tabIndex = -1; f.setAttribute('aria-hidden','true');
-    el.appendChild(f);
-    return f;
-  }
-  function soltar(c){
-    var f = c.querySelector('iframe.yt-live');
-    if (f){ f.src = 'about:blank'; if (f.parentNode) f.parentNode.removeChild(f); }
-    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
+  function prender(el, arch, clase){
+    var v = el.querySelector('video.' + clase);
+    if (!v){
+      v = document.createElement('video');
+      v.className = clase;
+      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('muted',''); v.setAttribute('playsinline','');
+      v.setAttribute('aria-hidden','true'); v.tabIndex = -1;
+      el.appendChild(v);
+    }
+    if (!v.getAttribute('src')){ v.preload = 'auto'; v.src = BASE + arch; }
+    var p = v.play(); if (p && p['catch']) p['catch'](function(){});
+    return v;
   }
 
-  /* 1. EL HERO, PRIMERO. Hasta esta linea la pagina no pidio un byte a YouTube. */
+  /* 1. EL HERO, DE UNA. Es lo primero que se ve: es lo primero que se pide. */
   var pv = document.querySelector('.pv');
-  if (pv) prender(pv, 'XqqLSahN48A', 'yt-hero');
+  if (pv) prender(pv, 'hero.mp4', 'vd-hero');
 
   /* 2. LOS 8 MINI: solo cuando entran en pantalla, y de a 3. */
-  var TILES = [].slice.call(document.querySelectorAll('.fx[data-yt]'));
-  var TOPE = 3, VIVOS = [];
+  var TILES = [].slice.call(document.querySelectorAll('.fx[data-v]'));
 
   if (!('IntersectionObserver' in window)){
-    /* fail-safe: sin observer, los 3 primeros y nada mas. Nunca los 8. */
-    TILES.slice(0, TOPE).forEach(function(c){ prender(c, c.dataset.yt, 'yt-live'); });
+    /* fail-safe: navegador sin observer -> todos. Nunca una grilla de posters muertos. */
+    TILES.forEach(function(c){ prender(c, c.dataset.v, 'vd-live'); });
     return;
+  }
+
+  var TOPE = 3, VIVOS = [];
+  function soltar(c){
+    var v = c.querySelector('video.vd-live');
+    if (v){ v.pause(); v.removeAttribute('src'); v.load();   /* corta la descarga */
+            if (v.parentNode) v.parentNode.removeChild(v); }
+    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
   }
   function podar(){            /* el cupo se hace soltando a los que ya no se ven */
     for (var i = VIVOS.length - 1; i >= 0; i--) if (!VIVOS[i].visible) soltar(VIVOS[i]);
   }
   function encender(c){
-    if (!c.visible || c.querySelector('iframe.yt-live')) return;
+    if (!c.visible || c.querySelector('video.vd-live')) return;
     podar();
     if (VIVOS.length >= TOPE) return;  /* cupo lleno de visibles: se queda el poster */
-    prender(c, c.dataset.yt, 'yt-live');
+    prender(c, c.dataset.v, 'vd-live');
     VIVOS.push(c);
   }
   var io = new IntersectionObserver(function(ens){
@@ -730,7 +726,7 @@ if (PIXEL_ID) {
      cobran OTRO producto (acct_1U4Vcs): ponerlos aqui le cobraria al
      carpintero el curso de edicion de video. Cuando existan los 4 payment
      links de esta oferta se pegan aqui y se pone BLOQUEADO en false.       */
-  var LK={base:'https://buy.stripe.com/eVq14mcCO4bo1PBfig0RG00',fx:'https://buy.stripe.com/dRm4gyfP0gYadyj4DC0RG01',cin:'https://buy.stripe.com/eVqaEWfP023g65Rfig0RG02',todo:'https://buy.stripe.com/5kQ28qcCO7nAdyj9XW0RG03'};
+  var LK={base:'https://buy.stripe.com/eVq14mcCO4bo1PBfig0RG00?locale=es-419',fx:'https://buy.stripe.com/dRm4gyfP0gYadyj4DC0RG01?locale=es-419',cin:'https://buy.stripe.com/eVqaEWfP023g65Rfig0RG02?locale=es-419',todo:'https://buy.stripe.com/5kQ28qcCO7nAdyj9XW0RG03?locale=es-419'};
   var BLOQUEADO = false;   /* <- false cuando LK tenga links reales */
   var PR={base:'9.99',fx:'11.98',cin:'11.98',todo:'12.99'};
 
@@ -742,7 +738,10 @@ if (PIXEL_ID) {
     if(!REF) REF=sessionStorage.getItem('melaminaRef');
     if(!REF && (q.get('fbclid')||/facebook\.com|instagram\.com/.test(document.referrer))) REF='MELAMINA-META-SINTAG';
   }catch(e){}
-  function conRef(u){ return REF ? u+'&client_reference_id='+REF : u; }
+  /* el separador sale de la URL, no de la memoria: pegar '&' a un payment link
+     SIN query string da 403 en Stripe (medido 2026-09-24), y como REF se llena
+     con fbclid, eso rompia el checkout de TODO el trafico que viene de Meta. */
+  function conRef(u){ return REF ? u+(u.indexOf('?')<0?'?':'&')+'client_reference_id='+REF : u; }
 
   var TAB={"COP":{"9.99":33900,"11.98":39900,"12.99":44900},"MXN":{"9.99":179,"11.98":219,"12.99":239},"BRL":{"9.99":53.99,"11.98":64.99,"12.99":69.99},"PEN":{"9.99":35.99,"11.98":42.99,"12.99":46.99},"CLP":{"9.99":9900,"11.98":11900,"12.99":12900},"ARS":{"9.99":16900,"11.98":19900,"12.99":21900},"UYU":{"9.99":429,"11.98":519,"12.99":559},"GTQ":{"9.99":79.99,"11.98":95.99,"12.99":104.99},"HNL":{"9.99":289,"11.98":349,"12.99":379},"NIO":{"9.99":389,"11.98":469,"12.99":509},"CRC":{"9.99":4990,"11.98":5990,"12.99":6490},"DOP":{"9.99":609,"11.98":729,"12.99":789},"PYG":{"9.99":62900,"11.98":75900,"12.99":81900},"BOB":{"9.99":129,"11.98":159,"12.99":169}};
   var TZ2CC={"America/Bogota":"CO","America/Mexico_City":"MX","America/Cancun":"MX","America/Merida":"MX","America/Monterrey":"MX","America/Matamoros":"MX","America/Chihuahua":"MX","America/Ciudad_Juarez":"MX","America/Ojinaga":"MX","America/Hermosillo":"MX","America/Mazatlan":"MX","America/Bahia_Banderas":"MX","America/Tijuana":"MX","America/Lima":"PE","America/Santiago":"CL","America/Punta_Arenas":"CL","Pacific/Easter":"CL","America/Guatemala":"GT","America/Tegucigalpa":"HN","America/Managua":"NI","America/Costa_Rica":"CR","America/Santo_Domingo":"DO","America/Asuncion":"PY","America/Montevideo":"UY","America/La_Paz":"BO","America/Buenos_Aires":"AR","America/Cordoba":"AR","America/Mendoza":"AR","America/Rosario":"AR","America/Catamarca":"AR","America/Jujuy":"AR","America/Sao_Paulo":"BR","America/Bahia":"BR","America/Fortaleza":"BR","America/Recife":"BR","America/Belem":"BR","America/Manaus":"BR","America/Cuiaba":"BR","America/Campo_Grande":"BR","America/Porto_Velho":"BR","America/Boa_Vista":"BR","America/Rio_Branco":"BR","America/Maceio":"BR","America/Araguaina":"BR","America/Santarem":"BR","America/Eirunepe":"BR","America/Noronha":"BR","America/Sao_Luis":"BR","America/Guayaquil":"EC","America/El_Salvador":"SV","America/Panama":"PA","America/Argentina":"AR","America/Santa_Isabel":"MX"};
