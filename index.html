@@ -709,21 +709,36 @@ en movil: casilla, icono, texto y precio comparten linea a 360 px. --><section i
 })();
 </script>
 <script>
-/* == InitiateCheckout (MELAMINA-IC-v1) ==============================
-   Un solo evento, en el clic del boton que lleva a Stripe. El valor NO va
-   clavado: sale del PROPIO BOTON en ese momento (data-icv/data-icc los pinta
-   up() en cada cambio de bump). Si faltaran, se parsea el numero del texto
-   del boton; y si tampoco, cae en 9.99 USD.
-   Capturing para correr antes de que el anchor navegue.
-   PROHIBIDO disparar la COMPRA desde aqui: la manda el SERVIDOR una sola vez,
-   con event_id = id de la sesion de Stripe (cs_live_...). Si el navegador la
-   mandara tambien, Meta contaria la misma venta dos veces y la campana
-   aprenderia con datos inflados (medido en CapCut: 6 compras donde hubo 4). */
+/* == InitiateCheckout (MELAMINA-IC-v2) ==============================
+   El evento se manda en el clic del boton que lleva a Stripe, y la
+   navegacion se RETRASA 250 ms para que la peticion a facebook.com/tr
+   alcance a salir. Sin eso el evento NO llega: el navegador abandona la
+   pagina en el mismo instante y mata la peticion en vuelo (medido el
+   2026-09-25: 18 PageView y CERO InitiateCheckout con el codigo de v1
+   puesto y clics reales hechos; quedandose en la pagina y llamando fbq a
+   mano la peticion si salia => el pixel acepta el evento, lo que fallaba
+   era sobrevivir a la navegacion).
+   POR QUE EN click Y NO EN pointerdown: pointerdown daria mas margen
+   gratis, pero en movil se dispara cuando el dedo TOCA el boton aunque
+   despues el visitante arrastre para hacer scroll => inflaria el
+   InitiateCheckout con toques que no son intencion de pago. 250 ms no los
+   siente nadie; un IC falso si ensucia la optimizacion de la campana.
+   El valor NO va clavado: sale del PROPIO BOTON en ese momento
+   (data-icv/data-icc los pinta up() en cada cambio de bump). Si faltaran,
+   se parsea el numero del texto del boton; y si tampoco, cae en 9.99 USD.
+   FAIL-SAFE (primero cobrar, despues medir): si no hay fbq, si fbq
+   revienta, si el clic trae modificador (ctrl/cmd/medio = abrir en pestana
+   nueva) o si el anchor apunta a otra pestana, NO se toca la navegacion.
+   Y hay un temporizador de escape que navega igual si algo falla en medio.
+   PROHIBIDO disparar la COMPRA desde aqui: la manda el SERVIDOR una sola
+   vez, con event_id = id de la sesion de Stripe (cs_live_...). Si el
+   navegador la mandara tambien, Meta contaria la misma venta dos veces y
+   la campana aprenderia con datos inflados (medido en CapCut: 6 compras
+   donde hubo 4). */
 (function(){
-  /* el precio del boton viene formateado por toLocaleString en la moneda del
-     visitante: "$9.99" pero tambien "$33.900" (es-CO) y "R$ 53,99" (pt-BR).
-     El ultimo separador manda: con 1 o 2 cifras detras es decimal, si no es
-     de miles. Quien quiera cambiarlo, que corra banco_p2.py antes. */
+  var ESPERA=250;    /* ms que se le dan al pixel antes de navegar */
+  var VENTANA=2500;  /* ms en que un 2o clic al mismo boton no repite el evento */
+
   function num(t){
     var m=String(t).match(/[0-9][0-9.,\u00a0\u202f ]*/g);
     if(!m) return null;
@@ -736,18 +751,50 @@ en movil: casilla, icono, texto y precio comparten linea a 360 px. --><section i
     return (isFinite(n) && n>0) ? n : null;
   }
   window.__melIC = num;   /* lo expone para que el banco lo pueda medir */
-  document.addEventListener('click', function(e){
-    var t=e.target, a=null;
+
+  function ahora(){ return (Date.now ? Date.now() : (new Date()).getTime()); }
+  function anchor(t){
     while(t && t.nodeType===1){
-      if(t.tagName==='A' && (t.getAttribute('href')||'').indexOf('buy.stripe.com')>-1){ a=t; break; }
+      if(t.tagName==='A' && (t.getAttribute('href')||'').indexOf('buy.stripe.com')>-1) return t;
       t=t.parentNode;
     }
-    if(!a || typeof window.fbq!=='function') return;
+    return null;
+  }
+  var ULT=null;   /* {a:anchor,t:ms,id:eventID} del ultimo evento mandado */
+  /* devuelve el ms en que el evento salio, o null si no se pudo mandar */
+  function disparar(a){
+    if(typeof window.fbq!=='function') return null;
+    var t=ahora();
+    if(ULT && ULT.a===a && (t-ULT.t)<VENTANA) return ULT.t;   /* ya salio */
     var v=parseFloat(a.getAttribute('data-icv'));
     var cur=a.getAttribute('data-icc') || 'USD';
     if(!(isFinite(v) && v>0)){ v=num(a.textContent); }
     if(!(isFinite(v) && v>0)){ v=9.99; cur='USD'; }
-    try{ fbq('track','InitiateCheckout',{value:v,currency:cur}); }catch(err){}
+    var id='ic-'+t+'-'+Math.random().toString(36).slice(2,10);
+    try{ fbq('track','InitiateCheckout',{value:v,currency:cur},{eventID:id}); }
+    catch(err){ return null; }
+    ULT={a:a,t:t,id:id};
+    return t;
+  }
+  document.addEventListener('click', function(e){
+    var a=anchor(e.target);
+    if(!a) return;
+    var t0=disparar(a);
+    if(t0===null) return;                 /* sin pixel: no se estorba la compra */
+    if(e.defaultPrevented) return;        /* otro ya decidio: no se encima */
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    if(typeof e.button==='number' && e.button!==0) return;
+    var tg=a.getAttribute('target');
+    if(tg && tg!=='_self') return;        /* pestana nueva: la pagina no se va */
+    var href=a.href || a.getAttribute('href');
+    if(!href) return;
+    var falta=ESPERA-(ahora()-t0);
+    if(falta<=0) return;                  /* ya paso el margen: navega normal */
+    e.preventDefault();
+    var ido=false;
+    function ir(){ if(ido) return; ido=true; try{ window.location.href=href; }catch(err){} }
+    setTimeout(ir, falta);
+    setTimeout(ir, falta+750);            /* escape: si algo falla, igual navega */
   }, true);
 })();
 </script>
