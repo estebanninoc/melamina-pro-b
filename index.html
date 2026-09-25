@@ -386,7 +386,7 @@
 /* PIXEL DE META: va en null a proposito. El pixel de esta oferta TODAVIA NO
    EXISTE y Esteban decide cual. Poniendo el ID aqui se enciende solo. NO se
    hereda el pixel del molde de CapCut: mediria otro producto. */
-var PIXEL_ID = null;
+var PIXEL_ID = '1111081301276455';
 if (PIXEL_ID) {
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -866,6 +866,16 @@ if (PIXEL_ID) {
   function up(){
     var k = fx.checked&&cin.checked ? 'todo' : fx.checked ? 'fx' : cin.checked ? 'cin' : 'base';
     var p=precio(k);
+    /* InitiateCheckout lee el valor de AQUI, no de una constante: los bumps
+       cambian link y monto, asi que el monto se estampa en el boton en el
+       mismo momento en que cambia. Es dato, no cambia nada visual.
+       Va el precio en USD (PR), NO el de la moneda local (val): los 4 payment
+       links NO tienen currency_options (medido 2026-09-25, Stripe NH) => lo que
+       se COBRA es USD siempre, y la tabla local es solo lo que se muestra. El
+       Purchase del servidor va a traer esos mismos USD; mandar 33.900 COP aqui
+       y 9,99 USD alla seria describir el mismo embudo con dos numeros. */
+    btn.setAttribute('data-icv', parseFloat(PR[k]));
+    btn.setAttribute('data-icc', 'USD');
     if(BLOQUEADO){
       btn.removeAttribute('href');
       btn.setAttribute('aria-disabled','true');
@@ -895,6 +905,49 @@ if (PIXEL_ID) {
   reloj(); espejo();
   fx.addEventListener('change',up); cin.addEventListener('change',up);
   up();
+})();
+</script>
+<script>
+/* == InitiateCheckout (MELAMINA-IC-v1) ==============================
+   Un solo evento, en el clic del boton que lleva a Stripe. El valor NO va
+   clavado: sale del PROPIO BOTON en ese momento (data-icv/data-icc los pinta
+   up() en cada cambio de bump). Si faltaran, se parsea el numero del texto
+   del boton; y si tampoco, cae en 9.99 USD.
+   Capturing para correr antes de que el anchor navegue.
+   PROHIBIDO disparar la COMPRA desde aqui: la manda el SERVIDOR una sola vez,
+   con event_id = id de la sesion de Stripe (cs_live_...). Si el navegador la
+   mandara tambien, Meta contaria la misma venta dos veces y la campana
+   aprenderia con datos inflados (medido en CapCut: 6 compras donde hubo 4). */
+(function(){
+  /* el precio del boton viene formateado por toLocaleString en la moneda del
+     visitante: "$9.99" pero tambien "$33.900" (es-CO) y "R$ 53,99" (pt-BR).
+     El ultimo separador manda: con 1 o 2 cifras detras es decimal, si no es
+     de miles. Quien quiera cambiarlo, que corra banco_p2.py antes. */
+  function num(t){
+    var m=String(t).match(/[0-9][0-9.,\u00a0\u202f ]*/g);
+    if(!m) return null;
+    var s=m[m.length-1].replace(/[\s\u00a0\u202f]/g,'').replace(/[.,]+$/,'');
+    var i=Math.max(s.lastIndexOf(','), s.lastIndexOf('.'));
+    var d=(i>-1) ? s.length-i-1 : -1;
+    s = (d===1||d===2) ? s.slice(0,i).replace(/[.,]/g,'')+'.'+s.slice(i+1)
+                       : s.replace(/[.,]/g,'');
+    var n=parseFloat(s);
+    return (isFinite(n) && n>0) ? n : null;
+  }
+  window.__melIC = num;   /* lo expone para que el banco lo pueda medir */
+  document.addEventListener('click', function(e){
+    var t=e.target, a=null;
+    while(t && t.nodeType===1){
+      if(t.tagName==='A' && (t.getAttribute('href')||'').indexOf('buy.stripe.com')>-1){ a=t; break; }
+      t=t.parentNode;
+    }
+    if(!a || typeof window.fbq!=='function') return;
+    var v=parseFloat(a.getAttribute('data-icv'));
+    var cur=a.getAttribute('data-icc') || 'USD';
+    if(!(isFinite(v) && v>0)){ v=num(a.textContent); }
+    if(!(isFinite(v) && v>0)){ v=9.99; cur='USD'; }
+    try{ fbq('track','InitiateCheckout',{value:v,currency:cur}); }catch(err){}
+  }, true);
 })();
 </script>
 </body>
