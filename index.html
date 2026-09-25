@@ -89,8 +89,8 @@
      hotlinkeada. Contraste medido del trazo (p90) contra --bg: 6,96:1 -- el
      piso de WCAG 1.4.11 para grafico es 3:1, o sea 2,3x de sobra. Va con
      width/height puestos: el layout no salta mientras carga (4127 B). */
-  .logo .mark{width:42px;height:42px;display:block;flex-shrink:0;object-fit:contain}
-  .logo .mark.big{width:66px;height:66px}
+  .logo .mark{width:35px;height:35px;display:block;flex-shrink:0;object-fit:contain}
+  .logo .mark.big{width:54px;height:54px}
   .logo .sub{font-weight:700;font-size:.78rem;letter-spacing:.14em;color:var(--acc2);text-transform:uppercase}
 
   nav{position:sticky;top:0;z-index:50;background:rgba(26,18,11,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
@@ -321,7 +321,7 @@
      footer. El translateY va en % para que corrija los dos tamanos con un
      solo numero: 2/128 = 1,5625%. */
   .logo .wm{display:flex;align-items:center;gap:2px;line-height:1}
-  .logo .mark{transform:translateY(-1.5625%)}
+  .logo .mark{transform:translateY(0.1953%)}
 
   /* ANCLA + BADGE + RELOJ del bloque de compra */
   .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
@@ -401,7 +401,7 @@ if (PIXEL_ID) {
 
 <nav>
   <div class="wrap">
-    <div class="logo"><img class="mark" src="img/logo-glow-128.png" width="42" height="42" alt="Melamina Pro" decoding="async"><span class="wm">MELAMINA<span class="sub">PRO</span></span></div>
+    <div class="logo"><img class="mark" src="img/logo-mark-256.png" width="35" height="35" alt="Melamina Pro" decoding="async"><span class="wm">MELAMINA<span class="sub">PRO</span></span></div>
     <a href="#comprar" class="btn">Lo quiero</a>
   </div>
 </nav>
@@ -621,7 +621,7 @@ if (PIXEL_ID) {
 
 <footer>
   <div class="wrap">
-    <div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="img/logo-glow-128.png" width="66" height="66" alt="Melamina Pro" decoding="async"><span class="wm">MELAMINA<span class="sub">PRO</span></span></div>
+    <div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="img/logo-mark-256.png" width="54" height="54" alt="Melamina Pro" decoding="async"><span class="wm">MELAMINA<span class="sub">PRO</span></span></div>
     <p>&copy; 2026 &middot; Melamina Pro</p>
   </div>
 </footer>
