@@ -755,6 +755,62 @@ if (PIXEL_ID) {
     }
     return null;
   }
+  /* ══ el MISMO IC tambien por CAPI — obra capi-purchase-melamina, 27-sep ════
+     ORDEN DE ESTEBAN (textual, hoy): "el Iniciar pago de melamina entra hoy solo
+     por Navegador, sin CAPI. CapCut lo tiene por Multiple. Mandalo tambien por
+     CAPI." O sea: se SUMA una fuente, no se reemplaza la que hay.
+
+     LO QUE HACE QUE ESTO NO SEA DOBLE CONTEO, Y ES LO UNICO QUE IMPORTA AQUI:
+     va el MISMO `eventID` que acaba de recibir fbq, la variable `id` de la linea
+     de arriba. No se arma otro, no se deriva, no se inventa. Con el id compartido
+     Meta ve UN evento con DOS fuentes y lo deduplica; sin el veria DOS eventos y
+     la campana aprenderia con el doble de intencion de compra que hubo de verdad
+     (en CapCut conto 6 compras donde hubo 4, por exactamente esto). Si no
+     hubiera id, NO SE MANDA: es la regla, y el servidor la repite rechazando
+     cualquier IC que llegue sin un eventID con la forma de este.
+
+     sendBeacon Y NO fetch: este clic NAVEGA a Stripe, y el navegador mata las
+     peticiones en vuelo al abandonar la pagina -- es lo que dejo 18 PageView y
+     CERO IC el 25-sep. sendBeacon esta hecho para esto: el navegador se
+     compromete a entregarlo aunque la pagina ya no exista. No consume los 250 ms
+     de espera del pixel ni los necesita.
+
+     EL VALUE VA EN USD porque es lo que va en `data-icv` del boton, o sea lo
+     MISMO que acaba de recibir fbq. Las dos fuentes del mismo evento tienen que
+     describirlo con el mismo numero; cual deberia ser ese numero (USD del price
+     vs moneda de presentacion) es otra discusion y no se decide aca.
+
+     FALLA CERRADO Y MUDO: si algo revienta, la navegacion al checkout NO se toca.
+     Primero cobrar, despues medir.
+
+     REVERSA DE 1 LINEA:  var IC_CAPI_URL = '';                              */
+  var IC_CAPI_URL = 'https://api.melamina.pro:8443/capi';
+  var IC_CAPI_K   = 'wMl8KH_7QKqvWN3CGnRj0JJCJf3nwA79';
+  function icCapi(id,v,cur){
+    if(!IC_CAPI_URL || !id) return;
+    try{
+      function ck(n){
+        var m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');
+        return m?m.pop():'';
+      }
+      var q='?ev=InitiateCheckout&eid='+encodeURIComponent(id)
+           +'&v='+encodeURIComponent(v)+'&c='+encodeURIComponent(cur)
+           +'&k='+encodeURIComponent(IC_CAPI_K);
+      var fbp=ck('_fbp'), fbc=ck('_fbc');
+      if(fbp) q+='&fbp='+encodeURIComponent(fbp);
+      if(fbc) q+='&fbc='+encodeURIComponent(fbc);
+      /* el nombre del anuncio, el mismo que la landing ya le manda a Stripe como
+         client_reference_id: sin el, Meta recibe el IC y no sabe de que anuncio
+         salio. */
+      var ref=null;
+      try{ ref=sessionStorage.getItem('melaminaRef'); }catch(e){}
+      if(ref) q+='&ad='+encodeURIComponent(ref);
+      q+='&u='+encodeURIComponent(location.href.split('#')[0].slice(0,300));
+      if(navigator.sendBeacon){ navigator.sendBeacon(IC_CAPI_URL+q); }
+      else { fetch(IC_CAPI_URL+q,{method:'POST',credentials:'omit',keepalive:true})
+               .catch(function(){}); }
+    }catch(e){}
+  }
   var ULT=null;   /* {a:anchor,t:ms,id:eventID} del ultimo evento mandado */
   /* devuelve el ms en que el evento salio, o null si no se pudo mandar */
   function disparar(a){
@@ -768,6 +824,10 @@ if (PIXEL_ID) {
     var id='ic-'+t+'-'+Math.random().toString(36).slice(2,10);
     try{ fbq('track','InitiateCheckout',{value:v,currency:cur},{eventID:id}); }
     catch(err){ return null; }
+    /* el MISMO evento, el MISMO eventID, por la 2a fuente. Va DESPUES del fbq y
+       nunca en su lugar: si fbq revienta, `return null` de arriba ya corto y aca
+       no se llega -- no se manda un IC por CAPI de un clic que el pixel no vio. */
+    icCapi(id,v,cur);
     ULT={a:a,t:t,id:id};
     return t;
   }
