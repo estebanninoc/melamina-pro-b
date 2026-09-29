@@ -411,7 +411,13 @@ muestra (.pv tiene aspect-ratio 9/12 y object-fit:cover): antes 1 de cada
 .hero-trust,.trust-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
 .hero-trust span,.trust-row span{font-size:.78rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#d3d7e0;padding:5px 11px;border-radius:999px;white-space:nowrap;line-height:1}
 .trust-row{margin-top:10px}
-#reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}</style>
+#reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}/* BONOS OCULTOS (temporal, orden de Esteban 2026-09-29: "los bonos distraen").
+   Solo se ESCONDE el bloque: los dos checkbox siguen en el DOM y sin marcar,
+   asi up() resuelve la clave "base" y el boton sirve el checkout de 9,99 con su
+   precio local. No se toco ningun precio, ningun link ni el pixel.
+   REVERSA: borrar esta unica regla y los bonos vuelven tal cual estaban. */
+  .bumps{display:none!important}
+</style>
 <script>
 /* PIXEL DE META: va en null a proposito. El pixel de esta oferta TODAVIA NO
    EXISTE y Esteban decide cual. Poniendo el ID aqui se enciende solo. NO se
